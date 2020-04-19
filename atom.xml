@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Emil`s Blog</title>
+  
+  <subtitle>Hvnobug</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://blog.hvnobug.com/"/>
+  <updated>2020-04-19T02:04:13.024Z</updated>
+  <id>https://blog.hvnobug.com/</id>
+  
+  <author>
+    <name>Emil</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Github 加速</title>
+    <link href="https://blog.hvnobug.com/post/github-accelerate.html"/>
+    <id>https://blog.hvnobug.com/post/github-accelerate.html</id>
+    <published>2019-12-31T04:03:13.000Z</published>
+    <updated>2020-04-19T02:04:13.024Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;blockquote&gt;
+&lt;p&gt;Github 慢到爆炸,再也受不了一秒 12kb 的下载速度了。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img
+        
+      
+    
+    </summary>
+    
+    
+      <category term="hexo" scheme="https://blog.hvnobug.com/categories/hexo/"/>
+    
+    
+      <category term="hexo" scheme="https://blog.hvnobug.com/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>为你的 hexo 添加 loading page</title>
+    <link href="https://blog.hvnobug.com/post/hexo-loading-page.html"/>
+    <id>https://blog.hvnobug.com/post/hexo-loading-page.html</id>
+    <published>2019-12-30T05:11:01.000Z</published>
+    <updated>2020-04-19T02:04:13.026Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;先看效果图。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/loading/1.gif&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="hexo" scheme="https://blog.hvnobug.com/categories/hexo/"/>
+    
+    
+      <category term="hexo" scheme="https://blog.hvnobug.com/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hexo使用脚本解决新浪图床防盗链问题</title>
+    <link href="https://blog.hvnobug.com/post/hexo-no-referrer.html"/>
+    <id>https://blog.hvnobug.com/post/hexo-no-referrer.html</id>
+    <published>2019-12-26T07:28:19.000Z</published>
+    <updated>2020-04-19T02:04:13.026Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/loading/1.gif&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="hexo" scheme="https://blog.hvnobug.com/categories/hexo/"/>
+    
+    
+      <category term="hexo" scheme="https://blog.hvnobug.com/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一个神奇的 python 开源项目-thefuck</title>
+    <link href="https://blog.hvnobug.com/post/how-interesting-project-thefuck.html"/>
+    <id>https://blog.hvnobug.com/post/how-interesting-project-thefuck.html</id>
+    <published>2019-12-25T06:11:23.000Z</published>
+    <updated>2020-04-19T02:04:13.027Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;blockquote&gt;
+&lt;p&gt;最近在 github 发现了一个神奇的项目,差点没笑死,也太好玩了吧&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img
+        
+      
+    
+    </summary>
+    
+    
+      <category term="python" scheme="https://blog.hvnobug.com/categories/python/"/>
+    
+    
+      <category term="python" scheme="https://blog.hvnobug.com/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SpringSecurity中通过Nginx转发重定向到Nginx的地址解决办法</title>
+    <link href="https://blog.hvnobug.com/post/spring-security-redirect.html"/>
+    <id>https://blog.hvnobug.com/post/spring-security-redirect.html</id>
+    <published>2019-12-24T05:01:01.000Z</published>
+    <updated>2020-04-19T02:04:13.031Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="java" scheme="https://blog.hvnobug.com/categories/java/"/>
+    
+    
+      <category term="java" scheme="https://blog.hvnobug.com/tags/java/"/>
+    
+      <category term="spring-security" scheme="https://blog.hvnobug.com/tags/spring-security/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>分享 Github 开源的程序员抢票神器</title>
+    <link href="https://blog.hvnobug.com/post/12306-open-source.html"/>
+    <id>https://blog.hvnobug.com/post/12306-open-source.html</id>
+    <published>2019-12-23T02:11:19.000Z</published>
+    <updated>2020-04-19T02:04:13.021Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;马上春节了,很多胖友都在为回家的火车票抓狂呢,一票难求啊。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/loading/1.gif&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="github" scheme="https://blog.hvnobug.com/categories/github/"/>
+    
+    
+      <category term="github" scheme="https://blog.hvnobug.com/tags/github/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>推荐一些实用的开源工具(Java篇)</title>
+    <link href="https://blog.hvnobug.com/post/awesome-java-github-tool.html"/>
+    <id>https://blog.hvnobug.com/post/awesome-java-github-tool.html</id>
+    <published>2019-12-21T08:01:19.000Z</published>
+    <updated>2020-04-19T02:04:13.022Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;alibaba-arthas&quot;&gt;&lt;a href=&quot;#alibaba-arthas&quot; class=&quot;headerlink&quot; title=&quot;alibaba/arthas&quot;&gt;&lt;/a&gt;alibaba/arthas&lt;/h2&gt;&lt;p&gt;项目地址:&lt;a
+        
+      
+    
+    </summary>
+    
+    
+      <category term="java" scheme="https://blog.hvnobug.com/categories/java/"/>
+    
+    
+      <category term="java" scheme="https://blog.hvnobug.com/tags/java/"/>
+    
+      <category term="github" scheme="https://blog.hvnobug.com/tags/github/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>推荐一些实用的Github项目(Java篇)</title>
+    <link href="https://blog.hvnobug.com/post/awesome-java-github-project.html"/>
+    <id>https://blog.hvnobug.com/post/awesome-java-github-project.html</id>
+    <published>2019-12-21T04:21:09.000Z</published>
+    <updated>2020-04-19T02:04:13.022Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;zhoutaoo-SpringCloud&quot;&gt;&lt;a href=&quot;#zhoutaoo-SpringCloud&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="java" scheme="https://blog.hvnobug.com/categories/java/"/>
+    
+    
+      <category term="java" scheme="https://blog.hvnobug.com/tags/java/"/>
+    
+      <category term="github" scheme="https://blog.hvnobug.com/tags/github/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Opencv 开源项目</title>
+    <link href="https://blog.hvnobug.com/post/opencv-opensource.html"/>
+    <id>https://blog.hvnobug.com/post/opencv-opensource.html</id>
+    <published>2019-12-20T05:11:08.000Z</published>
+    <updated>2020-04-19T02:04:13.029Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;Roujack-mathAI&quot;&gt;&lt;a href=&quot;#Roujack-mathAI&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="python" scheme="https://blog.hvnobug.com/categories/python/"/>
+    
+    
+      <category term="python" scheme="https://blog.hvnobug.com/tags/python/"/>
+    
+      <category term="opencv" scheme="https://blog.hvnobug.com/tags/opencv/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于博客文章加密的设计</title>
+    <link href="https://blog.hvnobug.com/post/about-document-encrypt.html"/>
+    <id>https://blog.hvnobug.com/post/about-document-encrypt.html</id>
+    <published>2019-12-17T06:21:28.000Z</published>
+    <updated>2020-04-19T02:04:13.021Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;blockquote&gt;
+&lt;p&gt;目前开源的博客框架很多种,从架构来分,大致分为两种&lt;br&gt;一种生成纯静态页面的无后台博客(例如 hexo,vuepress 等)&lt;br&gt;另一种是用户后台管理的博客框架(例如 wordpress,typecho
+        
+      
+    
+    </summary>
+    
+    
+      <category term="other" scheme="https://blog.hvnobug.com/categories/other/"/>
+    
+    
+      <category term="encrypt" scheme="https://blog.hvnobug.com/tags/encrypt/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Github 上的学习资源</title>
+    <link href="https://blog.hvnobug.com/post/github-learning.html"/>
+    <id>https://blog.hvnobug.com/post/github-learning.html</id>
+    <published>2019-12-12T05:01:39.000Z</published>
+    <updated>2020-04-19T02:04:13.025Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;blockquote&gt;
+&lt;p&gt;统计一些 github 上的学习资源,感觉对你有帮助的朋友,可以给我一个 star🌟. Github仓库地址:&lt;a href=&quot;https://github.com/hvnobug/awesome-learning&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="github" scheme="https://blog.hvnobug.com/categories/github/"/>
+    
+    
+      <category term="github" scheme="https://blog.hvnobug.com/tags/github/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Docker开启远程访问</title>
+    <link href="https://blog.hvnobug.com/post/docker-remote-access.html"/>
+    <id>https://blog.hvnobug.com/post/docker-remote-access.html</id>
+    <published>2019-10-07T05:01:12.000Z</published>
+    <updated>2020-04-19T02:04:13.023Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;开启远程端口实现远程api调用&quot;&gt;&lt;a href=&quot;#开启远程端口实现远程api调用&quot; class=&quot;headerlink&quot; title=&quot;开启远程端口实现远程api调用&quot;&gt;&lt;/a&gt;开启远程端口实现远程api调用&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;进入到
+        
+      
+    
+    </summary>
+    
+    
+      <category term="docker" scheme="https://blog.hvnobug.com/categories/docker/"/>
+    
+    
+      <category term="docker" scheme="https://blog.hvnobug.com/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Nginx内置变量</title>
+    <link href="https://blog.hvnobug.com/post/nginx-variable.html"/>
+    <id>https://blog.hvnobug.com/post/nginx-variable.html</id>
+    <published>2019-10-04T07:13:32.000Z</published>
+    <updated>2020-04-19T02:04:13.029Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;blockquote&gt;
+&lt;p&gt;使用 nginx 服务器时,一定会用到 nginx 内置变量,必须需要获取客户端请求的真实域名/IP&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&quot;center&quot;&gt;name&lt;/th&gt;
+&lt;th
+        
+      
+    
+    </summary>
+    
+    
+      <category term="nginx" scheme="https://blog.hvnobug.com/categories/nginx/"/>
+    
+    
+      <category term="nginx" scheme="https://blog.hvnobug.com/tags/nginx/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SpringBoot-Mail发送邮件</title>
+    <link href="https://blog.hvnobug.com/post/spring-boot-email.html"/>
+    <id>https://blog.hvnobug.com/post/spring-boot-email.html</id>
+    <published>2019-10-02T23:21:07.000Z</published>
+    <updated>2020-04-19T02:04:13.030Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;添加-maven-依赖&quot;&gt;&lt;a href=&quot;#添加-maven-依赖&quot; class=&quot;headerlink&quot; title=&quot;添加 maven 依赖&quot;&gt;&lt;/a&gt;添加 maven 依赖&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;在 pom.xml 中添加 mail 和
+        
+      
+    
+    </summary>
+    
+    
+      <category term="java" scheme="https://blog.hvnobug.com/categories/java/"/>
+    
+    
+      <category term="java" scheme="https://blog.hvnobug.com/tags/java/"/>
+    
+      <category term="spring-boot" scheme="https://blog.hvnobug.com/tags/spring-boot/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mac终端工具iTerm2</title>
+    <link href="https://blog.hvnobug.com/post/mac-terminal-iterm2.html"/>
+    <id>https://blog.hvnobug.com/post/mac-terminal-iterm2.html</id>
+    <published>2019-09-21T05:11:02.000Z</published>
+    <updated>2020-04-19T02:04:13.028Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;iTerm2&quot;&gt;&lt;a href=&quot;#iTerm2&quot; class=&quot;headerlink&quot; title=&quot;iTerm2&quot;&gt;&lt;/a&gt;iTerm2&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;Mac
+        
+      
+    
+    </summary>
+    
+    
+      <category term="mac" scheme="https://blog.hvnobug.com/categories/mac/"/>
+    
+    
+      <category term="mac" scheme="https://blog.hvnobug.com/tags/mac/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hexo博客美化</title>
+    <link href="https://blog.hvnobug.com/post/hexo-optimize.html"/>
+    <id>https://blog.hvnobug.com/post/hexo-optimize.html</id>
+    <published>2019-09-03T13:10:34.000Z</published>
+    <updated>2020-04-19T04:02:42.978Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;Hexo 优化&lt;/p&gt;
+&lt;h2 id=&quot;1-外链跳转插件&quot;&gt;&lt;a href=&quot;#1-外链跳转插件&quot; class=&quot;headerlink&quot; title=&quot;1. 外链跳转插件&quot;&gt;&lt;/a&gt;1. 外链跳转插件&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+    
+      <category term="hexo" scheme="https://blog.hvnobug.com/categories/hexo/"/>
+    
+    
+      <category term="hexo" scheme="https://blog.hvnobug.com/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hexo免费搭建个人博客网站</title>
+    <link href="https://blog.hvnobug.com/post/hexo-free.html"/>
+    <id>https://blog.hvnobug.com/post/hexo-free.html</id>
+    <published>2019-06-20T04:21:39.000Z</published>
+    <updated>2020-04-19T02:04:13.025Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;blockquote&gt;
+&lt;p&gt;本站使用的 &lt;a href=&quot;https://hexo.io/zh-cn/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt; + &lt;a href=&quot;https://pages.github.com/&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="hexo" scheme="https://blog.hvnobug.com/categories/hexo/"/>
+    
+    
+      <category term="hexo" scheme="https://blog.hvnobug.com/tags/hexo/"/>
+    
+      <category term="github" scheme="https://blog.hvnobug.com/tags/github/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SpringBoot之SpringApplication</title>
+    <link href="https://blog.hvnobug.com/post/spring-boot-springapplication.html"/>
+    <id>https://blog.hvnobug.com/post/spring-boot-springapplication.html</id>
+    <published>2019-06-17T05:20:10.000Z</published>
+    <updated>2020-04-19T02:04:13.031Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;blockquote&gt;
+&lt;p&gt;SpringApplication类提供了一种方便的方法来引导从main()方法开始的Spring应用程序。在许多情况下，你可以委托给静态SpringApplication.run方法&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div
+        
+      
+    
+    </summary>
+    
+    
+      <category term="java" scheme="https://blog.hvnobug.com/categories/java/"/>
+    
+    
+      <category term="java" scheme="https://blog.hvnobug.com/tags/java/"/>
+    
+      <category term="spring-boot" scheme="https://blog.hvnobug.com/tags/spring-boot/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SpringBoot Jpa多数据源配置</title>
+    <link href="https://blog.hvnobug.com/post/spring-boot-jpa-multiple-datasource.html"/>
+    <id>https://blog.hvnobug.com/post/spring-boot-jpa-multiple-datasource.html</id>
+    <published>2019-06-12T05:01:45.000Z</published>
+    <updated>2020-04-19T02:04:13.030Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;1-添加-maven-依赖&quot;&gt;&lt;a href=&quot;#1-添加-maven-依赖&quot; class=&quot;headerlink&quot; title=&quot;1. 添加 maven 依赖&quot;&gt;&lt;/a&gt;1. 添加 maven 依赖&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;在 pom.xml
+        
+      
+    
+    </summary>
+    
+    
+      <category term="java" scheme="https://blog.hvnobug.com/categories/java/"/>
+    
+    
+      <category term="java" scheme="https://blog.hvnobug.com/tags/java/"/>
+    
+      <category term="spring-boot" scheme="https://blog.hvnobug.com/tags/spring-boot/"/>
+    
+      <category term="druid" scheme="https://blog.hvnobug.com/tags/druid/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SpringBoot+Quartz+Druid实现动态定时任务</title>
+    <link href="https://blog.hvnobug.com/post/spring-boot-quartz.html"/>
+    <id>https://blog.hvnobug.com/post/spring-boot-quartz.html</id>
+    <published>2019-06-10T19:12:21.000Z</published>
+    <updated>2020-04-19T02:04:13.031Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;添加-maven-依赖&quot;&gt;&lt;a href=&quot;#添加-maven-依赖&quot; class=&quot;headerlink&quot; title=&quot;添加 maven 依赖&quot;&gt;&lt;/a&gt;添加 maven 依赖&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;在 pom.xml 中添加 quartz
+        
+      
+    
+    </summary>
+    
+    
+      <category term="java" scheme="https://blog.hvnobug.com/categories/java/"/>
+    
+    
+      <category term="java" scheme="https://blog.hvnobug.com/tags/java/"/>
+    
+      <category term="spring-boot" scheme="https://blog.hvnobug.com/tags/spring-boot/"/>
+    
+      <category term="druid" scheme="https://blog.hvnobug.com/tags/druid/"/>
+    
+      <category term="quartz" scheme="https://blog.hvnobug.com/tags/quartz/"/>
+    
+  </entry>
+  
+</feed>

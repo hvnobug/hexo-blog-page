@@ -1,0 +1,364 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5"><title>Hvnobug | Emil`s Blog</title><meta name="description" content="Emil`s Blog 是 Hexo 建造的个人博客网站.Java 第三方开源框架源码. 其他语言技术分享. 个人博客搭建."><meta name="keywords" content="BLog,个人博客,Java,前端,后端,web开发,Python,PHP,Hexo"><meta name="author" content="Emil"><meta name="copyright" content="Emil"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/hvnobug/assets/common/favicon.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="manifest" href="/pwa/manifest.json"><meta name="theme-color" content="#fff"><meta name="msapplication-TileColor" content="#fff"><link rel="apple-touch-icon" sizes="180x180" href="/pwa/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/pwa/32.png"><link rel="icon" type="image/png" sizes="16x16" href="/pwa/16.png"><link rel="mask-icon" href="/pwa/safari-pinned-tab.svg" color="#5bbad5"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Hvnobug"><meta name="twitter:description" content="Emil`s Blog 是 Hexo 建造的个人博客网站.Java 第三方开源框架源码. 其他语言技术分享. 个人博客搭建."><meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/hvnobug/assets/common/avatar.png"><meta property="og:type" content="website"><meta property="og:title" content="Hvnobug"><meta property="og:url" content="https://blog.hvnobug.com/album/tokyo-ghoul/3/"><meta property="og:site_name" content="Emil`s Blog"><meta property="og:description" content="Emil`s Blog 是 Hexo 建造的个人博客网站.Java 第三方开源框架源码. 其他语言技术分享. 个人博客搭建."><meta property="og:image" content="https://cdn.jsdelivr.net/gh/hvnobug/assets/common/avatar.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>const autoChangeMode = 'false'
+var t = Cookies.get("theme");
+if (autoChangeMode == '1'){
+const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+const isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+const isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+if (t === undefined){
+  if (isLightMode) activateLightMode()
+  else if (isDarkMode) activateDarkMode()
+  else if (isNotSpecified || hasNoSupport){
+    console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+    now = new Date();
+    hour = now.getHours();
+    isNight = hour < 6 || hour >= 18
+    isNight ? activateDarkMode() : activateLightMode()
+}
+} else if (t == 'light') activateLightMode()
+else activateDarkMode()
+
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="canonical" href="https://blog.hvnobug.com/album/tokyo-ghoul/3/"><link rel="preload" href="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/images/cover/photo.jpg" as="image"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://blog.hvnobug.com/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    title: 'Snackbar.bookmark.title',
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: {"languages":{"author":"作者: Emil","link":"链接: https://blog.hvnobug.com/album/tokyo-ghoul/3/","source":"来源: Emil`s Blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  ClickShowText: undefined,
+  medium_zoom: true,
+  fancybox: false,
+  Snackbar: {"bookmark":{"title":"Snackbar.bookmark.title","message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"bottom-left"},
+  baiduPush: false,
+  isHome: false,
+  isPost: false
+  
+}</script><style type="text/css" lang="css">
+    #body-wrap{
+        display: none;
+    }
+    #loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #FFF;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
+    
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+    
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+    
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+    
+   
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: #49b1f5;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: #2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);
+</style>
+<script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },1000); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+</script><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Emil`s Blog" type="application/atom+xml">
+</head>
+<div id="loading-container">
+    <p class="loading-text">玩命加载中 . . . </p> 
+    <div class="loading-image">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div> 
+        <div></div>
+    </div>
+</div><body><canvas class="fireworks"></canvas><header> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">Emil`s Blog</a></span><span class="toggle-menu pull_right close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-sitemap" aria-hidden="true"></i><span> 统计</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 媒体</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/album/"><i class="fa-fw fa fa-image"></i><span> 相册</span></a></li><li><a class="site-page" href="/books/"><i class="fa-fw fa fa-book"></i><span> 书籍</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> 电影</span></a></li><li><a class="site-page" href="/games/"><i class="fa-fw fa fa-gamepad"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/friends/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></span><span class="pull_right" id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></span></div></header><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://cdn.jsdelivr.net/gh/hvnobug/assets/common/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">24</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">18</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">10</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-sitemap" aria-hidden="true"></i><span> 统计</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 媒体</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/album/"><i class="fa-fw fa fa-image"></i><span> 相册</span></a></li><li><a class="site-page" href="/books/"><i class="fa-fw fa fa-book"></i><span> 书籍</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> 电影</span></a></li><li><a class="site-page" href="/games/"><i class="fa-fw fa fa-gamepad"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/friends/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><nav class="not_index_bg" id="nav" style="background-image: url(https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/images/cover/photo.jpg)"><div id="page_site-info"><div id="site-title"><span class="blogtitle">Emil`s Blog</span></div></div></nav><main id="content-outer"><div class="layout_page" id="content-inner"><div id="album" style="width: 100%;"><div class="grid"><div class="grid-item img-item" data-src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/48.jpg" data-sub-html=".caption" data-aos="zoom-in-up" style="width:300px"><img class="img-shadow img-margin unload" src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/images/loading-bottle.gif" style="width:300px" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/48.jpg" referrerpolicy="no-referrer"></div><div class="grid-item img-item" data-src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/49.jpg" data-sub-html=".caption" data-aos="zoom-in-up" style="width:300px"><img class="img-shadow img-margin unload" src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/images/loading-bottle.gif" style="width:300px" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/49.jpg" referrerpolicy="no-referrer"></div><div class="grid-item img-item" data-src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/50.jpg" data-sub-html=".caption" data-aos="zoom-in-up" style="width:300px"><img class="img-shadow img-margin unload" src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/images/loading-bottle.gif" style="width:300px" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/50.jpg" referrerpolicy="no-referrer"></div><div class="grid-item img-item" data-src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/51.jpg" data-sub-html=".caption" data-aos="zoom-in-up" style="width:300px"><img class="img-shadow img-margin unload" src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/images/loading-bottle.gif" style="width:300px" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/51.jpg" referrerpolicy="no-referrer"></div><div class="grid-item img-item" data-src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/52.jpg" data-sub-html=".caption" data-aos="zoom-in-up" style="width:300px"><img class="img-shadow img-margin unload" src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/images/loading-bottle.gif" style="width:300px" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/52.jpg" referrerpolicy="no-referrer"></div><div class="grid-item img-item" data-src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/53.jpg" data-sub-html=".caption" data-aos="zoom-in-up" style="width:300px"><img class="img-shadow img-margin unload" src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/images/loading-bottle.gif" style="width:300px" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/53.jpg" referrerpolicy="no-referrer"></div><div class="grid-item img-item" data-src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/54.jpg" data-sub-html=".caption" data-aos="zoom-in-up" style="width:300px"><img class="img-shadow img-margin unload" src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/images/loading-bottle.gif" style="width:300px" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/54.jpg" referrerpolicy="no-referrer"></div><div class="grid-item img-item" data-src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/55.jpg" data-sub-html=".caption" data-aos="zoom-in-up" style="width:300px"><img class="img-shadow img-margin unload" src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/images/loading-bottle.gif" style="width:300px" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/55.jpg" referrerpolicy="no-referrer"></div><div class="grid-item img-item" data-src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/56.jpg" data-sub-html=".caption" data-aos="zoom-in-up" style="width:300px"><img class="img-shadow img-margin unload" src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/images/loading-bottle.gif" style="width:300px" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/56.jpg" referrerpolicy="no-referrer"></div><div class="grid-item img-item" data-src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/57.jpg" data-sub-html=".caption" data-aos="zoom-in-up" style="width:300px"><img class="img-shadow img-margin unload" src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/images/loading-bottle.gif" style="width:300px" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/57.jpg" referrerpolicy="no-referrer"></div><div class="grid-item img-item" data-src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/58.jpg" data-sub-html=".caption" data-aos="zoom-in-up" style="width:300px"><img class="img-shadow img-margin unload" src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/images/loading-bottle.gif" style="width:300px" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/58.jpg" referrerpolicy="no-referrer"></div><div class="grid-item img-item" data-src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/59.jpg" data-sub-html=".caption" data-aos="zoom-in-up" style="width:300px"><img class="img-shadow img-margin unload" src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/images/loading-bottle.gif" style="width:300px" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/59.jpg" referrerpolicy="no-referrer"></div><div class="grid-item img-item" data-src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/60.jpg" data-sub-html=".caption" data-aos="zoom-in-up" style="width:300px"><img class="img-shadow img-margin unload" src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/images/loading-bottle.gif" style="width:300px" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/60.jpg" referrerpolicy="no-referrer"></div><div class="grid-item img-item" data-src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/61.jpg" data-sub-html=".caption" data-aos="zoom-in-up" style="width:300px"><img class="img-shadow img-margin unload" src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/images/loading-bottle.gif" style="width:300px" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/61.jpg" referrerpolicy="no-referrer"></div><div class="grid-item img-item" data-src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/62.jpg" data-sub-html=".caption" data-aos="zoom-in-up" style="width:300px"><img class="img-shadow img-margin unload" src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/images/loading-bottle.gif" style="width:300px" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/62.jpg" referrerpolicy="no-referrer"></div><div class="grid-item img-item" data-src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/63.jpg" data-sub-html=".caption" data-aos="zoom-in-up" style="width:300px"><img class="img-shadow img-margin unload" src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/images/loading-bottle.gif" style="width:300px" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/63.jpg" referrerpolicy="no-referrer"></div><div class="grid-item img-item" data-src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/64.jpg" data-sub-html=".caption" data-aos="zoom-in-up" style="width:300px"><img class="img-shadow img-margin unload" src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/images/loading-bottle.gif" style="width:300px" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/64.jpg" referrerpolicy="no-referrer"></div><div class="grid-item img-item" data-src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/65.jpg" data-sub-html=".caption" data-aos="zoom-in-up" style="width:300px"><img class="img-shadow img-margin unload" src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/images/loading-bottle.gif" style="width:300px" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/65.jpg" referrerpolicy="no-referrer"></div><div class="grid-item img-item" data-src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/66.jpg" data-sub-html=".caption" data-aos="zoom-in-up" style="width:300px"><img class="img-shadow img-margin unload" src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/images/loading-bottle.gif" style="width:300px" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/66.jpg" referrerpolicy="no-referrer"></div><div class="grid-item img-item" data-src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/67.jpg" data-sub-html=".caption" data-aos="zoom-in-up" style="width:300px"><img class="img-shadow img-margin unload" src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/images/loading-bottle.gif" style="width:300px" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/67.jpg" referrerpolicy="no-referrer"></div><div class="grid-item img-item" data-src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/68.jpg" data-sub-html=".caption" data-aos="zoom-in-up" style="width:300px"><img class="img-shadow img-margin unload" src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/images/loading-bottle.gif" style="width:300px" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/68.jpg" referrerpolicy="no-referrer"></div><div class="grid-item img-item" data-src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/69.jpg" data-sub-html=".caption" data-aos="zoom-in-up" style="width:300px"><img class="img-shadow img-margin unload" src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/images/loading-bottle.gif" style="width:300px" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/69.jpg" referrerpolicy="no-referrer"></div><div class="grid-item img-item" data-src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/70.jpg" data-sub-html=".caption" data-aos="zoom-in-up" style="width:300px"><img class="img-shadow img-margin unload" src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/images/loading-bottle.gif" style="width:300px" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/70.jpg" referrerpolicy="no-referrer"></div><div class="grid-item img-item" data-src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/71.jpg" data-sub-html=".caption" data-aos="zoom-in-up" style="width:300px"><img class="img-shadow img-margin unload" src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/images/loading-bottle.gif" style="width:300px" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/tokyo-ghoul/71.jpg" referrerpolicy="no-referrer"></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/album/tokyo-ghoul/2/"><i class="fa fa-fw fa-chevron-left" aria-hidden="true"></i></a><a class="page-number" href="/album/tokyo-ghoul/">1</a><a class="page-number" href="/album/tokyo-ghoul/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/album/tokyo-ghoul/4/">4</a><a class="page-number" href="/album/tokyo-ghoul/5/">5</a><a class="page-number" href="/album/tokyo-ghoul/6/">6</a><a class="page-number" href="/album/tokyo-ghoul/7/">7</a><a class="extend next" rel="next" href="/album/tokyo-ghoul/4/"><i class="fa fa-fw fa-chevron-right" aria-hidden="true"></i></a></div></nav></div></div></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2020 By Emil</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="icp"><a href="http://www.miitbeian.gov.cn/# 备案链接" target="_blank" rel="noopener"><img class="icp-icon" src="/img/icp.png"><span>豫ICP备18037410号-2</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/js/fireworks.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script id="canvas_nest" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/js/canvas-nest.js"></script><script src="https://cdn.jsdelivr.net/npm/activate-power-mode/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true; 
+document.body.addEventListener('input', POWERMODE);
+</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div>
+<script type="text/javascript">
+    (function (window) {
+        let images = Array.prototype.slice.call(document.querySelectorAll('img[data-original]'));
+    
+        function elementInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top >= 0
+                && rect.left >= 0
+                && rect.top <= (window.innerHeight +240 || document.documentElement.clientHeight +240)
+            );
+        }
+        function loadImage(el, fn) {
+            const img = new Image()
+                , src = el.getAttribute('data-original');
+            img.onload = function () {
+                el.src = src;
+                fn ? fn() : null;
+            };
+            img.src = src;
+        }
+    
+        function processImages() {
+            for (let i = 0; i < images.length; i++) {
+                if (elementInViewport(images[i])) {
+                    (function(index){
+                        const loadingImage = images[index];
+                        loadImage(loadingImage, function () {
+                            images = images.filter(function(t) {
+                                return loadingImage !== t;
+                            });
+                        });
+                    })(i);
+                }
+            };
+        }
+    
+        function throttle(method, context) {
+            clearTimeout(method.tId);
+            method.tId = setTimeout(function () {
+                method.call(context);
+            }, 500);
+        }
+    
+        processImages();
+    
+        window.addEventListener('scroll', function () {
+            throttle(processImages, window);
+        });
+    
+    })(this);
+</script>
+<!-- APlayer -->
+<link href="//unpkg.com/aplayer/dist/APlayer.min.css" rel="stylesheet">
+<script src="//cdn.jsdelivr.net/npm/hls.js"></script>
+<script src="//unpkg.com/aplayer/dist/APlayer.min.js"></script>
+<script>
+const neteaseMusics = {};
+/* 默认APi服务地址 */
+const neteaseMusicApiHost = 'https://hvnobug.com/netease-music-api';
+/* 默认歌单 */
+const playerListId = '3083141942';
+const initAPlayer = id => {
+    let player = document.getElementById('player');
+    if (!player) {
+        player = document.createElement('div');
+        player.id = 'player';
+        document.body.appendChild(player)
+    }
+    id = id || playerListId;
+    const url = 'https://api.i-meto.com/meting/api?server=netease&type=playlist&id=' + id;
+    $.get(url, function (result) {
+        const customAudioType = {
+            'customHls': function (audioElement, audio, player) {
+                if (Hls.isSupported()) {
+                    const hls = new Hls();
+                    hls.loadSource(audio.url);
+                    hls.attachMedia(audioElement)
+                } else if (audioElement.canPlayType('application/x-mpegURL') || audioElement.canPlayType('application/vnd.apple.mpegURL')) {
+                    audioElement.src = audio.url
+                } else {
+                    player.notice('Error: HLS is not supported.')
+                }
+            }
+        };
+        const aPlayer = new APlayer({
+            container: player,
+            fixed: true,
+            order: 'random',
+            customAudioType: customAudioType,
+            lrcType: 3,
+            autoplay: false,
+            audio: JSON.parse(result)
+        });
+
+    });
+};
+(function () {
+    /* 移动端不初始化 APlayer */
+    ((document.body.clientWidth || document.body.offsetWidth || window.screen.availWidth) > 450) && initAPlayer();
+}());
+</script>
+<!-- 每日一句 -->
+<script type="text/javascript">
+    const $title = $('.bg-cover .title');
+    if ($title.length > 0) {
+        $.ajax({
+            url: 'https://sdk.jinrishici.com/v2/browser/jinrishici.js',
+            dataType: "script",
+            cache: true,
+            async: false,
+            success: function () {
+                jinrishici.load(function (result) {
+                    // 自己的处理逻辑
+                    const {status, data} = result;
+                    if (status === 'success') {
+                        $title.css('font-size', '3rem');
+                        $title.html(data.origin.title + '<span style="font-size:2rem;margin-left:1rem;">' + data.origin.author + '-' + data.origin['dynasty'] + '</span>');
+                        typed.strings = data.origin.content.slice(0, 2);
+                    }
+                });
+            }
+        });
+    }
+</script>
+        <script src="//cdn.jsdelivr.net/npm/js-base64/base64.min.js"></script>
+        <script>
+        $('a').each(function() {
+          const $this = $(this);
+          const href = $this.attr('href');
+          if (href && href.match('^((http|https|thunder|qqdl|ed2k|Flashget|qbrowser|ftp|rtsp|mms)://)')) {
+            const strs = href.split('/');
+            if (strs.length >= 3) {
+                const host = strs[2];
+                if (host !== '' || window.location.host) {
+                    $this.attr('href', '/go.html?url='+Base64.encode(href)+'').attr('rel', 'external nofollow noopener noreferrer');
+                    if (true) {
+                        $this.attr('target', '_blank');
+                    }
+                }
+            }
+          }
+        });
+        </script></body></html>

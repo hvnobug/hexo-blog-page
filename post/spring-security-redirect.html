@@ -1,0 +1,455 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5"><title>SpringSecurity中通过Nginx转发重定向到Nginx的地址解决办法 | Emil`s Blog</title><meta name="description" content="SpringSecurity中通过Nginx转发重定向到Nginx的地址解决办法"><meta name="keywords" content="java,spring-security"><meta name="author" content="Emil"><meta name="copyright" content="Emil"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/hvnobug/assets/common/favicon.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="manifest" href="/pwa/manifest.json"><meta name="theme-color" content="#fff"><meta name="msapplication-TileColor" content="#fff"><link rel="apple-touch-icon" sizes="180x180" href="/pwa/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/pwa/32.png"><link rel="icon" type="image/png" sizes="16x16" href="/pwa/16.png"><link rel="mask-icon" href="/pwa/safari-pinned-tab.svg" color="#5bbad5"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="SpringSecurity中通过Nginx转发重定向到Nginx的地址解决办法"><meta name="twitter:description" content="SpringSecurity中通过Nginx转发重定向到Nginx的地址解决办法"><meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/original-anime/21.png"><meta property="og:type" content="article"><meta property="og:title" content="SpringSecurity中通过Nginx转发重定向到Nginx的地址解决办法"><meta property="og:url" content="https://blog.hvnobug.com/post/spring-security-redirect"><meta property="og:site_name" content="Emil`s Blog"><meta property="og:description" content="SpringSecurity中通过Nginx转发重定向到Nginx的地址解决办法"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/original-anime/21.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>const autoChangeMode = 'false'
+var t = Cookies.get("theme");
+if (autoChangeMode == '1'){
+const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+const isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+const isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+if (t === undefined){
+  if (isLightMode) activateLightMode()
+  else if (isDarkMode) activateDarkMode()
+  else if (isNotSpecified || hasNoSupport){
+    console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+    now = new Date();
+    hour = now.getHours();
+    isNight = hour < 6 || hour >= 18
+    isNight ? activateDarkMode() : activateLightMode()
+}
+} else if (t == 'light') activateLightMode()
+else activateDarkMode()
+
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="canonical" href="https://blog.hvnobug.com/post/spring-security-redirect"><link rel="prev" title="一个神奇的 python 开源项目-thefuck" href="https://blog.hvnobug.com/post/how-interesting-project-thefuck.html"><link rel="next" title="分享 Github 开源的程序员抢票神器" href="https://blog.hvnobug.com/post/12306-open-source.html"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://blog.hvnobug.com/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    title: 'Snackbar.bookmark.title',
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: {"languages":{"author":"作者: Emil","link":"链接: https://blog.hvnobug.com/post/spring-security-redirect","source":"来源: Emil`s Blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  ClickShowText: undefined,
+  medium_zoom: true,
+  fancybox: false,
+  Snackbar: {"bookmark":{"title":"Snackbar.bookmark.title","message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"bottom-left"},
+  baiduPush: false,
+  isHome: false,
+  isPost: true
+  
+}</script><style type="text/css" lang="css">
+    #body-wrap{
+        display: none;
+    }
+    #loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #FFF;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
+    
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+    
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+    
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+    
+   
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: #49b1f5;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: #2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);
+</style>
+<script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },1000); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+</script><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Emil`s Blog" type="application/atom+xml">
+</head>
+<div id="loading-container">
+    <p class="loading-text">玩命加载中 . . . </p> 
+    <div class="loading-image">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div> 
+        <div></div>
+    </div>
+</div><body><canvas class="fireworks"></canvas><header> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">Emil`s Blog</a></span><span class="toggle-menu pull_right close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-sitemap" aria-hidden="true"></i><span> 统计</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 媒体</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/album/"><i class="fa-fw fa fa-image"></i><span> 相册</span></a></li><li><a class="site-page" href="/books/"><i class="fa-fw fa fa-book"></i><span> 书籍</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> 电影</span></a></li><li><a class="site-page" href="/games/"><i class="fa-fw fa fa-gamepad"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/friends/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></span><span class="pull_right" id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></span></div></header><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://cdn.jsdelivr.net/gh/hvnobug/assets/common/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">24</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">18</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">10</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-sitemap" aria-hidden="true"></i><span> 统计</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 媒体</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/album/"><i class="fa-fw fa fa-image"></i><span> 相册</span></a></li><li><a class="site-page" href="/books/"><i class="fa-fw fa fa-book"></i><span> 书籍</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> 电影</span></a></li><li><a class="site-page" href="/games/"><i class="fa-fw fa fa-gamepad"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/friends/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">目录</div><div class="sidebar-toc__content"><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#问题描述"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text">问题描述</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#解决思路"><span class="toc_mobile_items-number">2.</span> <span class="toc_mobile_items-text">解决思路</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#1-自定义SpringSecurity重定向逻辑"><span class="toc_mobile_items-number">2.1.</span> <span class="toc_mobile_items-text">1. 自定义SpringSecurity重定向逻辑</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#2-将真实的客户端信息传递给服务端"><span class="toc_mobile_items-number">2.2.</span> <span class="toc_mobile_items-text">2. 将真实的客户端信息传递给服务端</span></a></li></ol></li></ol></div></div></div><div id="body-wrap"><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题描述"><span class="toc-number">1.</span> <span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决思路"><span class="toc-number">2.</span> <span class="toc-text">解决思路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-自定义SpringSecurity重定向逻辑"><span class="toc-number">2.1.</span> <span class="toc-text">1. 自定义SpringSecurity重定向逻辑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-将真实的客户端信息传递给服务端"><span class="toc-number">2.2.</span> <span class="toc-text">2. 将真实的客户端信息传递给服务端</span></a></li></ol></li></ol></div></div></div><main id="content-outer"><div id="top-container" style="background-image: url(https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/original-anime/21.png)"><div id="post-info"><div id="post-title"><div class="posttitle">SpringSecurity中通过Nginx转发重定向到Nginx的地址解决办法</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2019-12-24</time><span class="post-meta__separator">|</span><span><i class="fa fa-inbox post-meta__icon fa-fw" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/java/">java</a></span><div class="post-meta-wordcount"><i class="fa fa-file-word-o post-meta__icon fa-fw" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">1.3k</span><span class="post-meta__separator">|</span><i class="fa fa-clock-o post-meta__icon fa-fw" aria-hidden="true"></i><span>阅读时长: 6 分钟</span><div class="post-meta-pv-cv"><span class="post-meta__separator">|</span><span><i class="fa fa-eye post-meta__icon fa-fw" aria-hidden="true"> </i>阅读量:</span><span id="busuanzi_value_page_pv"></span></div></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><blockquote>
+<p>用于请求到服务端时,<code>SpringSecurity</code>会对用户进行鉴权(如果需要)。如果未认证,就会重定向到登录页进行认证授权。<code>SpringSecurity</code>的重定向是直接获取到<br>客户端Ip,如果说我们使用<code>Nginx</code>进行转发,而且使用的内网Ip,就会重定向到内网Ip。</p>
+</blockquote>
+<p>场景:</p>
+<ul>
+<li><code>tomcat</code>服务器一台,内网ip:192.168.0.101,端口8080</li>
+<li><code>nginx</code>服务器一台,外网ip:172.1.1.1,端口80</li>
+</ul>
+<p>客户端使用浏览器访问 <code>http://172.1.1.1</code>,会重定向到<code>http://192/168.0.101:8080/login</code>,该ip为内网ip,肯定是访问不到的。</p>
+<h2 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h2><h3 id="1-自定义SpringSecurity重定向逻辑"><a href="#1-自定义SpringSecurity重定向逻辑" class="headerlink" title="1. 自定义SpringSecurity重定向逻辑"></a>1. 自定义<code>SpringSecurity</code>重定向逻辑</h3><blockquote>
+<p>要想自定义<code>SpringSecurity</code>重定向逻辑,就需要了解<code>SpringSecurity</code>的认证流程。</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/loading/1.gif" data-original="http://ws1.sinaimg.cn/large/0065JV1Hgy1gaa010gmr5j30ir0jnaav.jpg" alt referrerpolicy="no-referrer"></p>
+<p>在<code>ExceptionTranslationFilter</code>的<code>doFilter</code>方法,我们发现这里抛出了<code>AuthenticationException</code></p>
+<p>调用<code>AccessDeniedException</code>方法处理异常</p>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">java</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">handleSpringSecurityException</span><span class="params">(HttpServletRequest request,</span></span></span><br><span class="line"><span class="function"><span class="params">        HttpServletResponse response, FilterChain chain, RuntimeException exception)</span></span></span><br><span class="line"><span class="function">        <span class="keyword">throws</span> IOException, ServletException </span>{</span><br><span class="line">    <span class="keyword">if</span> (exception <span class="keyword">instanceof</span> AuthenticationException) {</span><br><span class="line">        <span class="comment">// ...... </span></span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (exception <span class="keyword">instanceof</span> AccessDeniedException) {</span><br><span class="line">        <span class="comment">// 获取认证信息</span></span><br><span class="line">        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();</span><br><span class="line">        <span class="comment">// 是否为匿名或者记住我？当然匿名啊,都没有登录</span></span><br><span class="line">        <span class="keyword">if</span> (authenticationTrustResolver.isAnonymous(authentication) || authenticationTrustResolver.isRememberMe(authentication)) {</span><br><span class="line">            logger.debug(</span><br><span class="line">                    <span class="string">"Access is denied (user is "</span> + (authenticationTrustResolver.isAnonymous(authentication) ? <span class="string">"anonymous"</span> : <span class="string">"not fully authenticated"</span>) + <span class="string">"); redirecting to authentication entry point"</span>,</span><br><span class="line">                    exception);</span><br><span class="line">            </span><br><span class="line">            sendStartAuthentication(</span><br><span class="line">                    request,</span><br><span class="line">                    response,</span><br><span class="line">                    chain,</span><br><span class="line">                    <span class="keyword">new</span> InsufficientAuthenticationException(</span><br><span class="line">                        messages.getMessage(</span><br><span class="line">                            <span class="string">"ExceptionTranslationFilter.insufficientAuthentication"</span>,</span><br><span class="line">                            <span class="string">"Full authentication is required to access this resource"</span>)));</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">else</span> {</span><br><span class="line">            logger.debug(</span><br><span class="line">                    <span class="string">"Access is denied (user is not anonymous); delegating to AccessDeniedHandler"</span>,</span><br><span class="line">                    exception);</span><br><span class="line"></span><br><span class="line">            accessDeniedHandler.handle(request, response,</span><br><span class="line">                    (AccessDeniedException) exception);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+<blockquote>
+<p>因为抛出的是<code>AccessDeniedException</code>,这里判断是否为匿名或者记住我,调用<code>sendStartAuthentication</code>方法</p>
+</blockquote>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">java</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">sendStartAuthentication</span><span class="params">(HttpServletRequest request,</span></span></span><br><span class="line"><span class="function"><span class="params">        HttpServletResponse response, FilterChain chain,</span></span></span><br><span class="line"><span class="function"><span class="params">        AuthenticationException reason)</span> <span class="keyword">throws</span> ServletException, IOException </span>{</span><br><span class="line">    SecurityContextHolder.getContext().setAuthentication(<span class="keyword">null</span>);</span><br><span class="line">    requestCache.saveRequest(request, response);</span><br><span class="line">    logger.debug(<span class="string">"Calling Authentication entry point."</span>);</span><br><span class="line">    authenticationEntryPoint.commence(request, response, reason);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+<blockquote>
+<p>在<code>sendStartAuthentication</code>方法中调用<code>authenticationEntryPoint.commence</code>,debug到它的实现类<code>LoginUrlAuthenticationEntryPoint</code></p>
+</blockquote>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">java</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">commence</span><span class="params">(HttpServletRequest request, HttpServletResponse response,</span></span></span><br><span class="line"><span class="function"><span class="params">		AuthenticationException authException)</span> <span class="keyword">throws</span> IOException, ServletException </span>{</span><br><span class="line"></span><br><span class="line">	String redirectUrl = <span class="keyword">null</span>;</span><br><span class="line">       <span class="comment">// 是否使用 forward? 这里是重定向好吗。</span></span><br><span class="line">	<span class="keyword">if</span> (useForward) {</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (forceHttps &amp;&amp; <span class="string">"http"</span>.equals(request.getScheme())) {</span><br><span class="line">			<span class="comment">// First redirect the current request to HTTPS.</span></span><br><span class="line">			<span class="comment">// When that request is received, the forward to the login page will be</span></span><br><span class="line">			<span class="comment">// used.</span></span><br><span class="line">			redirectUrl = buildHttpsRedirectUrlForRequest(request);</span><br><span class="line">		}</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (redirectUrl == <span class="keyword">null</span>) {</span><br><span class="line">			String loginForm = determineUrlToUseForThisRequest(request, response,</span><br><span class="line">					authException);</span><br><span class="line"></span><br><span class="line">			<span class="keyword">if</span> (logger.isDebugEnabled()) {</span><br><span class="line">				logger.debug(<span class="string">"Server side forward to: "</span> + loginForm);</span><br><span class="line">			}</span><br><span class="line"></span><br><span class="line">			RequestDispatcher dispatcher = request.getRequestDispatcher(loginForm);</span><br><span class="line"></span><br><span class="line">			dispatcher.forward(request, response);</span><br><span class="line"></span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">       <span class="comment">// 是重定向走这里</span></span><br><span class="line">	<span class="keyword">else</span> {</span><br><span class="line">		<span class="comment">// redirect to login page. Use https if forceHttps true</span></span><br><span class="line"></span><br><span class="line">		redirectUrl = buildRedirectUrlToLoginPage(request, response, authException);</span><br><span class="line"></span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	redirectStrategy.sendRedirect(request, response, redirectUrl);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+<blockquote>
+<p><code>redirectUrl = buildRedirectUrlToLoginPage(request, response, authException);</code>,也就是这一句构建了重定向到登录页到<code>url</code>。</p>
+</blockquote>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">java</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> String <span class="title">buildRedirectUrlToLoginPage</span><span class="params">(HttpServletRequest request,</span></span></span><br><span class="line"><span class="function"><span class="params">		HttpServletResponse response, AuthenticationException authException)</span> </span>{</span><br><span class="line"></span><br><span class="line">	String loginForm = determineUrlToUseForThisRequest(request, response,</span><br><span class="line">			authException);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (UrlUtils.isAbsoluteUrl(loginForm)) {</span><br><span class="line">		<span class="keyword">return</span> loginForm;</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> serverPort = portResolver.getServerPort(request);</span><br><span class="line">	String scheme = request.getScheme();</span><br><span class="line"></span><br><span class="line">	RedirectUrlBuilder urlBuilder = <span class="keyword">new</span> RedirectUrlBuilder();</span><br><span class="line"></span><br><span class="line">	urlBuilder.setScheme(scheme);</span><br><span class="line">	urlBuilder.setServerName(request.getServerName());</span><br><span class="line">	urlBuilder.setPort(serverPort);</span><br><span class="line">	urlBuilder.setContextPath(request.getContextPath());</span><br><span class="line">	urlBuilder.setPathInfo(loginForm);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (forceHttps &amp;&amp; <span class="string">"http"</span>.equals(scheme)) {</span><br><span class="line">		Integer httpsPort = portMapper.lookupHttpsPort(Integer.valueOf(serverPort));</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (httpsPort != <span class="keyword">null</span>) {</span><br><span class="line">			<span class="comment">// Overwrite scheme and port in the redirect URL</span></span><br><span class="line">			urlBuilder.setScheme(<span class="string">"https"</span>);</span><br><span class="line">			urlBuilder.setPort(httpsPort.intValue());</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">else</span> {</span><br><span class="line">			logger.warn(<span class="string">"Unable to redirect to HTTPS as no port mapping found for HTTP port "</span></span><br><span class="line">					+ serverPort);</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> urlBuilder.getUrl();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+<p><img src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/loading/1.gif" data-original="http://ww3.sinaimg.cn/large/9150e4e5gy1g7wybumlthj20j60kqab3.jpg" alt referrerpolicy="no-referrer"></p>
+<blockquote>
+<p>也就是说我们重写 <code>LoginUrlAuthenticationEntryPoint</code> 的 <code>buildRedirectUrlToLoginPage</code>的方法不就可以了吗？Ok,直接贴源码。</p>
+</blockquote>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">java</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>  <span class="class"><span class="keyword">class</span> <span class="title">UnauthorizedEntryPoint</span> <span class="keyword">extends</span> <span class="title">LoginUrlAuthenticationEntryPoint</span> </span>{</span><br><span class="line"></span><br><span class="line">    UnauthorizedEntryPoint() {</span><br><span class="line">        <span class="keyword">super</span>(LOGIN_PAGE);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> String <span class="title">buildRedirectUrlToLoginPage</span><span class="params">(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)</span> </span>{</span><br><span class="line">        String loginForm = determineUrlToUseForThisRequest(request, response, authException);</span><br><span class="line">        <span class="keyword">if</span> (UrlUtils.isAbsoluteUrl(loginForm)) {</span><br><span class="line">            <span class="keyword">return</span> loginForm;</span><br><span class="line">        }</span><br><span class="line">        String url = ServletUtil.getRedirectUrl(request, loginForm);</span><br><span class="line">        log.info(<span class="string">"redirect url: {}"</span>, url);</span><br><span class="line">        HttpSession session = request.getSession();</span><br><span class="line">        <span class="keyword">if</span> (session != <span class="keyword">null</span>) {</span><br><span class="line">            session.setAttribute(REDIRECT_FROM_SESSION_NAME, ServletUtil.getRedirectUrl(request));</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> url;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+<blockquote>
+<p><code>ServletUtil</code>相关源码,主要用于获取真实客户端信息。</p>
+</blockquote>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">java</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ServletUtil</span> </span>{</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getPort</span><span class="params">(HttpServletRequest request)</span> </span>{</span><br><span class="line">        String port = request.getHeader(<span class="string">"X-Real-Port"</span>);</span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isEmpty(port) || <span class="string">"unknown"</span>.equalsIgnoreCase(port)) {</span><br><span class="line">            port = String.valueOf(request.getServerPort());</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> Integer.parseInt(port);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getIpAddr</span><span class="params">(HttpServletRequest request)</span> </span>{</span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            String ip = request.getHeader(<span class="string">"X-Real-Host"</span>);</span><br><span class="line">            <span class="keyword">if</span> (StringUtils.isEmpty(ip) || <span class="string">"unknown"</span>.equalsIgnoreCase(ip)) {</span><br><span class="line">                ip = request.getHeader(<span class="string">"X-Real-IP"</span>);</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span> (StringUtils.isEmpty(ip) || <span class="string">"unknown"</span>.equalsIgnoreCase(ip)) {</span><br><span class="line">                ip = request.getHeader(<span class="string">"X-Forwarded-For"</span>);</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span> (StringUtils.isEmpty(ip) || <span class="string">"unknown"</span>.equalsIgnoreCase(ip)) {</span><br><span class="line">                ip = request.getHeader(<span class="string">"Proxy-Client-IP"</span>);</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span> (StringUtils.isEmpty(ip) || <span class="string">"unknown"</span>.equalsIgnoreCase(ip)) {</span><br><span class="line">                ip = request.getHeader(<span class="string">"WL-Proxy-Client-IP"</span>);</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span> (StringUtils.isEmpty(ip) || <span class="string">"unknown"</span>.equalsIgnoreCase(ip)) {</span><br><span class="line">                String host = request.getHeader(<span class="string">"host"</span>);</span><br><span class="line">                <span class="keyword">if</span> (StringUtils.hasLength(host)) {</span><br><span class="line">                    ip = host.split(<span class="string">":"</span>)[<span class="number">0</span>];</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span> (StringUtils.isEmpty(ip) || <span class="string">"unknown"</span>.equalsIgnoreCase(ip)) {</span><br><span class="line">                ip = request.getRemoteAddr();</span><br><span class="line">                <span class="keyword">if</span> (ip.equals(<span class="string">"127.0.0.1"</span>) || ip.equals(<span class="string">"0:0:0:0:0:0:0:1"</span>)) {</span><br><span class="line">                    <span class="comment">// 根据网卡取本机配置的IP</span></span><br><span class="line">                    InetAddress inetAddress = InetAddress.getLocalHost();</span><br><span class="line">                    ip = inetAddress.getHostAddress();</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">            <span class="comment">// 对于通过多个代理的情况，第一个IP为客户端真实IP,多个IP按照','分割</span></span><br><span class="line">            <span class="keyword">if</span> (ip.indexOf(<span class="string">","</span>) &gt; <span class="number">0</span>) {</span><br><span class="line">                ip = ip.substring(<span class="number">0</span>, ip.indexOf(<span class="string">","</span>));</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">return</span> ip;</span><br><span class="line">        } <span class="keyword">catch</span> (Exception e) {</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getScheme</span><span class="params">(HttpServletRequest request)</span> </span>{</span><br><span class="line">        String scheme = request.getHeader(<span class="string">"X-Forwarded-Proto"</span>);</span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isEmpty(scheme) || <span class="string">"unknown"</span>.equalsIgnoreCase(scheme)) {</span><br><span class="line">            scheme = String.valueOf(request.getScheme());</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> scheme;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getRedirectUrl</span><span class="params">(HttpServletRequest request)</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> getRedirectUrl(request, request.getServletPath());</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getRedirectUrl</span><span class="params">(HttpServletRequest request, String path)</span> </span>{</span><br><span class="line">        RedirectUrlBuilder urlBuilder = <span class="keyword">new</span> RedirectUrlBuilder();</span><br><span class="line">        urlBuilder.setPathInfo(path);</span><br><span class="line">        urlBuilder.setScheme(getScheme(request));</span><br><span class="line">        urlBuilder.setServerName(getIpAddr(request));</span><br><span class="line">        urlBuilder.setPort(ServletUtil.getPort(request));</span><br><span class="line">        urlBuilder.setContextPath(request.getContextPath());</span><br><span class="line">        urlBuilder.setQuery(request.getQueryString());</span><br><span class="line">        <span class="keyword">return</span> urlBuilder.getUrl();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+<p>当然了,还需要在<code>WebSecurityConfigurerAdapter</code>进行配置</p>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">java</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableWebSecurity</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SecurityConfig</span> <span class="keyword">extends</span> <span class="title">WebSecurityConfigurerAdapter</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(HttpSecurity httpSecurity)</span> <span class="keyword">throws</span> Exception </span>{</span><br><span class="line">        httpSecurity.exceptionHandling().authenticationEntryPoint(<span class="keyword">new</span> UnauthorizedEntryPoint()).and()</span><br><span class="line">        <span class="comment">//   ... 此处省略其他配置     </span></span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+<h3 id="2-将真实的客户端信息传递给服务端"><a href="#2-将真实的客户端信息传递给服务端" class="headerlink" title="2. 将真实的客户端信息传递给服务端"></a>2. 将真实的客户端信息传递给服务端</h3><blockquote>
+<p>那这些真实客户端信息到底怎么来的,必须<code>nginx</code>转发的啊。</p>
+</blockquote>
+<p>配置 nginx</p>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">location / {</span><br><span class="line">        proxy_pass   http://192.168.0.101:8080;</span><br><span class="line">        proxy_redirect  default;</span><br><span class="line">        proxy_set_header  X-Real-Host $host;</span><br><span class="line">        proxy_set_header  X-Real-IP $remote_addr;</span><br><span class="line">        proxy_set_header  X-Real-PORT $server_port;</span><br><span class="line">        proxy_set_header  X-Forwarded-Proto $scheme;</span><br><span class="line">        proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">        proxy_connect_timeout 1;</span><br><span class="line">        proxy_send_timeout 30;</span><br><span class="line">        proxy_read_timeout 60;</span><br><span class="line">        client_max_body_size 50m;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+<p>这下就可以重定向到真实到客户端地址了。当然你可能会说,干嘛不做转发。转发是可以的,考虑项目使用的是相对地址,使用重定向也可以规避很多问题。绝对地址的话需要考虑到<code>contextPath</code>。</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script></div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Emil</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://blog.hvnobug.com/post/spring-security-redirect.html">https://blog.hvnobug.com/post/spring-security-redirect.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.hvnobug.com">Emil`s Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/java/">java    </a><a class="post-meta__tags" href="/tags/spring-security/">spring-security    </a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/original-anime/21.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="lazyload post-qr-code__img" src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/loading/1.gif" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/medias/reward/wechat.png" alt="微信"><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="lazyload post-qr-code__img" src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/loading/1.gif" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/medias/reward/alipay.jpg" alt="支付宝"><div class="post-qr-code__desc">支付宝</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/post/how-interesting-project-thefuck.html"><img class="prev_cover" src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/original-anime/12.png" onerror="onerror=null;src='/img/404.jpg'"><div class="label">上一篇</div><div class="prev_info"><span>一个神奇的 python 开源项目-thefuck</span></div></a></div><div class="next-post pull_right"><a href="/post/12306-open-source.html"><img class="next_cover" src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/original-anime/0.png" onerror="onerror=null;src='/img/404.jpg'"><div class="label">下一篇</div><div class="next_info"><span>分享 Github 开源的程序员抢票神器</span></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/post/awesome-java-github-tool.html" title="推荐一些实用的开源工具(Java篇)"><img class="relatedPosts_cover "src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/loading/1.gif" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/original-anime/3.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-04-19</div><div class="relatedPosts_title">推荐一些实用的开源工具(Java篇)</div></div></a></div><div class="relatedPosts_item"><a href="/post/awesome-java-github-project.html" title="推荐一些实用的Github项目(Java篇)"><img class="relatedPosts_cover "src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/loading/1.gif" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/original-anime/2.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-04-19</div><div class="relatedPosts_title">推荐一些实用的Github项目(Java篇)</div></div></a></div><div class="relatedPosts_item"><a href="/post/spring-boot-email.html" title="SpringBoot-Mail发送邮件"><img class="relatedPosts_cover "src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/loading/1.gif" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/original-anime/17.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-04-19</div><div class="relatedPosts_title">SpringBoot-Mail发送邮件</div></div></a></div><div class="relatedPosts_item"><a href="/post/spring-boot-springapplication.html" title="SpringBoot之SpringApplication"><img class="relatedPosts_cover "src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/loading/1.gif" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/original-anime/20.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-04-19</div><div class="relatedPosts_title">SpringBoot之SpringApplication</div></div></a></div><div class="relatedPosts_item"><a href="/post/spring-boot-jpa-multiple-datasource.html" title="SpringBoot Jpa多数据源配置"><img class="relatedPosts_cover "src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/loading/1.gif" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/original-anime/18.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-04-19</div><div class="relatedPosts_title">SpringBoot Jpa多数据源配置</div></div></a></div><div class="relatedPosts_item"><a href="/post/spring-boot-quartz.html" title="SpringBoot+Quartz+Druid实现动态定时任务"><img class="relatedPosts_cover "src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/loading/1.gif" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/original-anime/19.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-04-19</div><div class="relatedPosts_title">SpringBoot+Quartz+Druid实现动态定时任务</div></div></a></div><div class="relatedPosts_item"><a href="/post/java-reflect-type.html" title="Java反射之Type接口"><img class="relatedPosts_cover "src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/loading/1.gif" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/original-anime/13.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-04-19</div><div class="relatedPosts_title">Java反射之Type接口</div></div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = false == true ? true : false;
+var verify = false == true ? true : false;
+var GUEST_INFO = ['nick','mail','link'];
+var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+  return GUEST_INFO.indexOf(item) > -1
+});
+guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+
+window.valine = new Valine({
+  el:'#vcomment',
+  notify:notify,
+  verify:verify,
+  appId:'wN7GK2Jgd6fz8so4U85XeUxl-9Nh9j0Va',
+  appKey:'JRpha8sPFNqXkv1a0HNIIQFY',
+  placeholder:'说点什么吧!',
+  avatar:'monsterid',
+  guest_info:guest_info,
+  pageSize:'10',
+  lang:'zh-cn',
+  recordIP: true
+});</script></div></div></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2020 By Emil</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="icp"><a href="http://www.miitbeian.gov.cn/# 备案链接" target="_blank" rel="noopener"><img class="icp-icon" src="/img/icp.png"><span>豫ICP备18037410号-2</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/js/fireworks.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script id="canvas_nest" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/js/canvas-nest.js"></script><script src="https://cdn.jsdelivr.net/npm/activate-power-mode/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true; 
+document.body.addEventListener('input', POWERMODE);
+</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div>
+<script type="text/javascript">
+    (function (window) {
+        let images = Array.prototype.slice.call(document.querySelectorAll('img[data-original]'));
+    
+        function elementInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top >= 0
+                && rect.left >= 0
+                && rect.top <= (window.innerHeight +240 || document.documentElement.clientHeight +240)
+            );
+        }
+        function loadImage(el, fn) {
+            const img = new Image()
+                , src = el.getAttribute('data-original');
+            img.onload = function () {
+                el.src = src;
+                fn ? fn() : null;
+            };
+            img.src = src;
+        }
+    
+        function processImages() {
+            for (let i = 0; i < images.length; i++) {
+                if (elementInViewport(images[i])) {
+                    (function(index){
+                        const loadingImage = images[index];
+                        loadImage(loadingImage, function () {
+                            images = images.filter(function(t) {
+                                return loadingImage !== t;
+                            });
+                        });
+                    })(i);
+                }
+            };
+        }
+    
+        function throttle(method, context) {
+            clearTimeout(method.tId);
+            method.tId = setTimeout(function () {
+                method.call(context);
+            }, 500);
+        }
+    
+        processImages();
+    
+        window.addEventListener('scroll', function () {
+            throttle(processImages, window);
+        });
+    
+    })(this);
+</script>
+<!-- APlayer -->
+<link href="//unpkg.com/aplayer/dist/APlayer.min.css" rel="stylesheet">
+<script src="//cdn.jsdelivr.net/npm/hls.js"></script>
+<script src="//unpkg.com/aplayer/dist/APlayer.min.js"></script>
+<script>
+const neteaseMusics = {};
+/* 默认APi服务地址 */
+const neteaseMusicApiHost = 'https://hvnobug.com/netease-music-api';
+/* 默认歌单 */
+const playerListId = '3083141942';
+const initAPlayer = id => {
+    let player = document.getElementById('player');
+    if (!player) {
+        player = document.createElement('div');
+        player.id = 'player';
+        document.body.appendChild(player)
+    }
+    id = id || playerListId;
+    const url = 'https://api.i-meto.com/meting/api?server=netease&type=playlist&id=' + id;
+    $.get(url, function (result) {
+        const customAudioType = {
+            'customHls': function (audioElement, audio, player) {
+                if (Hls.isSupported()) {
+                    const hls = new Hls();
+                    hls.loadSource(audio.url);
+                    hls.attachMedia(audioElement)
+                } else if (audioElement.canPlayType('application/x-mpegURL') || audioElement.canPlayType('application/vnd.apple.mpegURL')) {
+                    audioElement.src = audio.url
+                } else {
+                    player.notice('Error: HLS is not supported.')
+                }
+            }
+        };
+        const aPlayer = new APlayer({
+            container: player,
+            fixed: true,
+            order: 'random',
+            customAudioType: customAudioType,
+            lrcType: 3,
+            autoplay: false,
+            audio: JSON.parse(result)
+        });
+
+    });
+};
+(function () {
+    /* 移动端不初始化 APlayer */
+    ((document.body.clientWidth || document.body.offsetWidth || window.screen.availWidth) > 450) && initAPlayer();
+}());
+</script>
+<!-- 每日一句 -->
+<script type="text/javascript">
+    const $title = $('.bg-cover .title');
+    if ($title.length > 0) {
+        $.ajax({
+            url: 'https://sdk.jinrishici.com/v2/browser/jinrishici.js',
+            dataType: "script",
+            cache: true,
+            async: false,
+            success: function () {
+                jinrishici.load(function (result) {
+                    // 自己的处理逻辑
+                    const {status, data} = result;
+                    if (status === 'success') {
+                        $title.css('font-size', '3rem');
+                        $title.html(data.origin.title + '<span style="font-size:2rem;margin-left:1rem;">' + data.origin.author + '-' + data.origin['dynasty'] + '</span>');
+                        typed.strings = data.origin.content.slice(0, 2);
+                    }
+                });
+            }
+        });
+    }
+</script>
+        <script src="//cdn.jsdelivr.net/npm/js-base64/base64.min.js"></script>
+        <script>
+        $('a').each(function() {
+          const $this = $(this);
+          const href = $this.attr('href');
+          if (href && href.match('^((http|https|thunder|qqdl|ed2k|Flashget|qbrowser|ftp|rtsp|mms)://)')) {
+            const strs = href.split('/');
+            if (strs.length >= 3) {
+                const host = strs[2];
+                if (host !== '' || window.location.host) {
+                    $this.attr('href', '/go.html?url='+Base64.encode(href)+'').attr('rel', 'external nofollow noopener noreferrer');
+                    if (true) {
+                        $this.attr('target', '_blank');
+                    }
+                }
+            }
+          }
+        });
+        </script></body></html>

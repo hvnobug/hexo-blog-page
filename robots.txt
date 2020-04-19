@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Allow: /post/
+Allow: /categories/
+Allow: /archives/
+Allow: /about/
+Allow: /tags/
+Allow: /album/
+Disallow: /images/
+Disallow: /js/
+Disallow: /css/
+Disallow: /fonts/
+Sitemap: https://blog.hvnobug.com/sitemap.xml

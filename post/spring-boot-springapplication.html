@@ -1,0 +1,467 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5"><title>SpringBoot之SpringApplication | Emil`s Blog</title><meta name="description" content="SpringBoot之SpringApplication"><meta name="keywords" content="java,spring-boot"><meta name="author" content="Emil"><meta name="copyright" content="Emil"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/hvnobug/assets/common/favicon.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="manifest" href="/pwa/manifest.json"><meta name="theme-color" content="#fff"><meta name="msapplication-TileColor" content="#fff"><link rel="apple-touch-icon" sizes="180x180" href="/pwa/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/pwa/32.png"><link rel="icon" type="image/png" sizes="16x16" href="/pwa/16.png"><link rel="mask-icon" href="/pwa/safari-pinned-tab.svg" color="#5bbad5"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="SpringBoot之SpringApplication"><meta name="twitter:description" content="SpringBoot之SpringApplication"><meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/original-anime/20.png"><meta property="og:type" content="article"><meta property="og:title" content="SpringBoot之SpringApplication"><meta property="og:url" content="https://blog.hvnobug.com/post/spring-boot-springapplication"><meta property="og:site_name" content="Emil`s Blog"><meta property="og:description" content="SpringBoot之SpringApplication"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/original-anime/20.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>const autoChangeMode = 'false'
+var t = Cookies.get("theme");
+if (autoChangeMode == '1'){
+const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+const isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+const isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+if (t === undefined){
+  if (isLightMode) activateLightMode()
+  else if (isDarkMode) activateDarkMode()
+  else if (isNotSpecified || hasNoSupport){
+    console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+    now = new Date();
+    hour = now.getHours();
+    isNight = hour < 6 || hour >= 18
+    isNight ? activateDarkMode() : activateLightMode()
+}
+} else if (t == 'light') activateLightMode()
+else activateDarkMode()
+
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="canonical" href="https://blog.hvnobug.com/post/spring-boot-springapplication"><link rel="prev" title="hexo免费搭建个人博客网站" href="https://blog.hvnobug.com/post/hexo-free.html"><link rel="next" title="SpringBoot Jpa多数据源配置" href="https://blog.hvnobug.com/post/spring-boot-jpa-multiple-datasource.html"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://blog.hvnobug.com/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    title: 'Snackbar.bookmark.title',
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: {"languages":{"author":"作者: Emil","link":"链接: https://blog.hvnobug.com/post/spring-boot-springapplication","source":"来源: Emil`s Blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  ClickShowText: undefined,
+  medium_zoom: true,
+  fancybox: false,
+  Snackbar: {"bookmark":{"title":"Snackbar.bookmark.title","message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"bottom-left"},
+  baiduPush: false,
+  isHome: false,
+  isPost: true
+  
+}</script><style type="text/css" lang="css">
+    #body-wrap{
+        display: none;
+    }
+    #loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #FFF;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
+    
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+    
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+    
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+    
+   
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: #49b1f5;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: #2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);
+</style>
+<script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },1000); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+</script><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Emil`s Blog" type="application/atom+xml">
+</head>
+<div id="loading-container">
+    <p class="loading-text">玩命加载中 . . . </p> 
+    <div class="loading-image">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div> 
+        <div></div>
+    </div>
+</div><body><canvas class="fireworks"></canvas><header> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">Emil`s Blog</a></span><span class="toggle-menu pull_right close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-sitemap" aria-hidden="true"></i><span> 统计</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 媒体</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/album/"><i class="fa-fw fa fa-image"></i><span> 相册</span></a></li><li><a class="site-page" href="/books/"><i class="fa-fw fa fa-book"></i><span> 书籍</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> 电影</span></a></li><li><a class="site-page" href="/games/"><i class="fa-fw fa fa-gamepad"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/friends/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></span><span class="pull_right" id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></span></div></header><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://cdn.jsdelivr.net/gh/hvnobug/assets/common/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">24</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">18</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">10</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-sitemap" aria-hidden="true"></i><span> 统计</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 媒体</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/album/"><i class="fa-fw fa fa-image"></i><span> 相册</span></a></li><li><a class="site-page" href="/books/"><i class="fa-fw fa fa-book"></i><span> 书籍</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> 电影</span></a></li><li><a class="site-page" href="/games/"><i class="fa-fw fa fa-gamepad"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/friends/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">目录</div><div class="sidebar-toc__content"><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#构造函数"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text">构造函数</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#deduceFromClasspath"><span class="toc_mobile_items-number">2.</span> <span class="toc_mobile_items-text">deduceFromClasspath</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#deduceMainApplicationClass"><span class="toc_mobile_items-number">3.</span> <span class="toc_mobile_items-text">deduceMainApplicationClass</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#getSpringFactoriesInstances"><span class="toc_mobile_items-number">4.</span> <span class="toc_mobile_items-text">getSpringFactoriesInstances</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#run方法"><span class="toc_mobile_items-number">5.</span> <span class="toc_mobile_items-text">run方法</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#prepareEnvironment"><span class="toc_mobile_items-number">6.</span> <span class="toc_mobile_items-text">prepareEnvironment</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#createApplicationContext"><span class="toc_mobile_items-number">7.</span> <span class="toc_mobile_items-text">createApplicationContext</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#prepareContext"><span class="toc_mobile_items-number">8.</span> <span class="toc_mobile_items-text">prepareContext</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#callRunners"><span class="toc_mobile_items-number">9.</span> <span class="toc_mobile_items-text">callRunners</span></a></li></ol></div></div></div><div id="body-wrap"><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#构造函数"><span class="toc-number">1.</span> <span class="toc-text">构造函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#deduceFromClasspath"><span class="toc-number">2.</span> <span class="toc-text">deduceFromClasspath</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#deduceMainApplicationClass"><span class="toc-number">3.</span> <span class="toc-text">deduceMainApplicationClass</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#getSpringFactoriesInstances"><span class="toc-number">4.</span> <span class="toc-text">getSpringFactoriesInstances</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#run方法"><span class="toc-number">5.</span> <span class="toc-text">run方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#prepareEnvironment"><span class="toc-number">6.</span> <span class="toc-text">prepareEnvironment</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#createApplicationContext"><span class="toc-number">7.</span> <span class="toc-text">createApplicationContext</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#prepareContext"><span class="toc-number">8.</span> <span class="toc-text">prepareContext</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#callRunners"><span class="toc-number">9.</span> <span class="toc-text">callRunners</span></a></li></ol></div></div></div><main id="content-outer"><div id="top-container" style="background-image: url(https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/original-anime/20.png)"><div id="post-info"><div id="post-title"><div class="posttitle">SpringBoot之SpringApplication</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2019-06-17</time><span class="post-meta__separator">|</span><span><i class="fa fa-inbox post-meta__icon fa-fw" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/java/">java</a></span><div class="post-meta-wordcount"><i class="fa fa-file-word-o post-meta__icon fa-fw" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">1.5k</span><span class="post-meta__separator">|</span><i class="fa fa-clock-o post-meta__icon fa-fw" aria-hidden="true"></i><span>阅读时长: 7 分钟</span><div class="post-meta-pv-cv"><span class="post-meta__separator">|</span><span><i class="fa fa-eye post-meta__icon fa-fw" aria-hidden="true"> </i>阅读量:</span><span id="busuanzi_value_page_pv"></span></div></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><blockquote>
+<p>SpringApplication类提供了一种方便的方法来引导从main()方法开始的Spring应用程序。在许多情况下，你可以委托给静态SpringApplication.run方法</p>
+</blockquote>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">java</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoApplication</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</span><br><span class="line">        SpringApplication.run(DemoApplication<span class="class">.<span class="keyword">class</span>, <span class="title">args</span>)</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+<blockquote>
+<p>本文主要根据对<code>SpringApplication</code>类的源码阅读来了解<code>SpringApplication</code>的启动流程。</p>
+</blockquote>
+<ol>
+<li>启动<code>StopWatch</code>用于记录应用启动时长</li>
+<li>配置<code>headless</code>属性(AWT 相关属性)</li>
+<li>获取应用监听器<code>SpringApplicationRunListeners</code>并启动</li>
+<li>初始化<code>ApplicationArguments</code>(提供对用于运行 SpringApplication 的参数的访问)</li>
+<li>初始化<code>ConfigurableEnvironment</code>(加载所有的 environment,包括 application.properties/application.yml 以及其他外部的属性配置 )</li>
+<li>打印<code>Banner</code></li>
+<li>创建应用上下文<code>ApplicationContext</code></li>
+<li>初始化<code>exceptionReporters</code>(记录启动过程中的异常信息)</li>
+<li>准备 ApplicationContext 对象,初始化一些属性</li>
+<li>启动(刷新)Spring 容器</li>
+<li>执行 Spring 容器的初始化的后置逻辑</li>
+<li>结束<code>StopWatch</code>统计</li>
+<li>通知监听器,Spring 容器启动完成</li>
+<li>调用 <code>ApplicationRunner</code>,<code>CommandLineRunner</code> 的 run 方法</li>
+<li>通知监听器,Spring 容器正在运行</li>
+</ol>
+<h2 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h2><div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">java</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ConfigurableApplicationContext <span class="title">run</span><span class="params">(Class&lt;?&gt;[] primarySources, String[] args)</span> </span>{</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> SpringApplication(primarySources).run(args);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">SpringApplication</span><span class="params">(Class&lt;?&gt;... primarySources)</span> </span>{</span><br><span class="line">  <span class="keyword">this</span>(<span class="keyword">null</span>, primarySources);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">SpringApplication</span><span class="params">(ResourceLoader resourceLoader, Class&lt;?&gt;... primarySources)</span> </span>{</span><br><span class="line">  <span class="comment">/* 初始化资源加载器 */</span></span><br><span class="line">  <span class="keyword">this</span>.resourceLoader = resourceLoader;</span><br><span class="line">  Assert.notNull(primarySources, <span class="string">"PrimarySources must not be null"</span>);</span><br><span class="line">  <span class="comment">/* 初始化 primarySources */</span></span><br><span class="line">  <span class="keyword">this</span>.primarySources = <span class="keyword">new</span> LinkedHashSet&lt;&gt;(Arrays.asList(primarySources));</span><br><span class="line">  <span class="comment">/* 获取 web 应用的类型 */</span></span><br><span class="line">  <span class="keyword">this</span>.webApplicationType = WebApplicationType.deduceFromClasspath();</span><br><span class="line">  <span class="comment">/* 初始化 initializers(ApplicationContextInitializer 类型的 bean) */</span></span><br><span class="line">  setInitializers((Collection) getSpringFactoriesInstances(ApplicationContextInitializer<span class="class">.<span class="keyword">class</span>))</span>;</span><br><span class="line">  <span class="comment">/* 初始化 setListeners(ApplicationListener 类型的 bean) */</span></span><br><span class="line">  setListeners((Collection) getSpringFactoriesInstances(ApplicationListener<span class="class">.<span class="keyword">class</span>))</span>;</span><br><span class="line">  <span class="comment">/* 推断 main 方法 Application 的 Class */</span></span><br><span class="line">  <span class="keyword">this</span>.mainApplicationClass = deduceMainApplicationClass();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+<h2 id="deduceFromClasspath"><a href="#deduceFromClasspath" class="headerlink" title="deduceFromClasspath"></a>deduceFromClasspath</h2><blockquote>
+<p>通过检查 classpath 推断出当前 web 环境</p>
+</blockquote>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">java</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> WebApplicationType <span class="title">deduceFromClasspath</span><span class="params">()</span> </span>{</span><br><span class="line">  <span class="comment">/* 判断是否存在是否是 webflux */</span></span><br><span class="line">  <span class="keyword">if</span> (ClassUtils.isPresent(WEBFLUX_INDICATOR_CLASS, <span class="keyword">null</span>) &amp;&amp; !ClassUtils.isPresent(WEBMVC_INDICATOR_CLASS, <span class="keyword">null</span>)</span><br><span class="line">      &amp;&amp; !ClassUtils.isPresent(JERSEY_INDICATOR_CLASS, <span class="keyword">null</span>)) {</span><br><span class="line">    <span class="keyword">return</span> WebApplicationType.REACTIVE;</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">for</span> (String className : SERVLET_INDICATOR_CLASSES) {</span><br><span class="line">    <span class="keyword">if</span> (!ClassUtils.isPresent(className, <span class="keyword">null</span>)) {</span><br><span class="line">      <span class="keyword">return</span> WebApplicationType.NONE;</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">return</span> WebApplicationType.SERVLET;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+<h2 id="deduceMainApplicationClass"><a href="#deduceMainApplicationClass" class="headerlink" title="deduceMainApplicationClass"></a>deduceMainApplicationClass</h2><blockquote>
+<p>推断是哪个类调用了 main 方法</p>
+</blockquote>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">java</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Class&lt;?&gt; deduceMainApplicationClass() {</span><br><span class="line">  <span class="keyword">try</span> {</span><br><span class="line">    StackTraceElement[] stackTrace = <span class="keyword">new</span> RuntimeException().getStackTrace();</span><br><span class="line">    <span class="keyword">for</span> (StackTraceElement stackTraceElement : stackTrace) {</span><br><span class="line">      <span class="keyword">if</span> (<span class="string">"main"</span>.equals(stackTraceElement.getMethodName())) {</span><br><span class="line">        <span class="keyword">return</span> Class.forName(stackTraceElement.getClassName());</span><br><span class="line">      }</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">catch</span> (ClassNotFoundException ex) {</span><br><span class="line"></span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+<h2 id="getSpringFactoriesInstances"><a href="#getSpringFactoriesInstances" class="headerlink" title="getSpringFactoriesInstances"></a>getSpringFactoriesInstances</h2><blockquote>
+<p>根据给定的 class 类型,获取对应 factories 中的实例</p>
+</blockquote>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">java</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> &lt;T&gt; <span class="function">Collection&lt;T&gt; <span class="title">getSpringFactoriesInstances</span><span class="params">(Class&lt;T&gt; type)</span> </span>{</span><br><span class="line">  <span class="keyword">return</span> getSpringFactoriesInstances(type, <span class="keyword">new</span> Class&lt;?&gt;[] {});</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> &lt;T&gt; <span class="function">Collection&lt;T&gt; <span class="title">getSpringFactoriesInstances</span><span class="params">(Class&lt;T&gt; type,</span></span></span><br><span class="line"><span class="function"><span class="params">    Class&lt;?&gt;[] parameterTypes, Object... args)</span> </span>{</span><br><span class="line">  <span class="comment">/* 获取类加载器 */</span></span><br><span class="line">  ClassLoader classLoader = getClassLoader();</span><br><span class="line">  <span class="comment">/* Set 类型的 names 确保惟一，以防止重复 */</span></span><br><span class="line">  <span class="comment">/* 加载 `META-INF/spring.factories` 里的 class */</span></span><br><span class="line">  Set&lt;String&gt; names = <span class="keyword">new</span> LinkedHashSet&lt;&gt;(</span><br><span class="line">      SpringFactoriesLoader.loadFactoryNames(type, classLoader));</span><br><span class="line">  <span class="comment">/* 为他们创建实例 */</span></span><br><span class="line">  List&lt;T&gt; instances = createSpringFactoriesInstances(type, parameterTypes,</span><br><span class="line">      classLoader, args, names);</span><br><span class="line">  <span class="comment">/* 为他们进行排序 */</span></span><br><span class="line">  AnnotationAwareOrderComparator.sort(instances);</span><br><span class="line">  <span class="keyword">return</span> instances;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+<h2 id="run方法"><a href="#run方法" class="headerlink" title="run方法"></a>run方法</h2><blockquote>
+<p>运行 Spring 应用</p>
+</blockquote>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">java</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ConfigurableApplicationContext <span class="title">run</span><span class="params">(Class&lt;?&gt; primarySource, String... args)</span> </span>{</span><br><span class="line">  <span class="keyword">return</span> run(<span class="keyword">new</span> Class&lt;?&gt;[] { primarySource }, args);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ConfigurableApplicationContext <span class="title">run</span><span class="params">(Class&lt;?&gt;[] primarySources, String[] args)</span> </span>{</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> SpringApplication(primarySources).run(args);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> ConfigurableApplicationContext <span class="title">run</span><span class="params">(String... args)</span> </span>{</span><br><span class="line">  <span class="comment">/* stopWatch 对象,用于统计指定任务的运行时间 */</span></span><br><span class="line">  StopWatch stopWatch = <span class="keyword">new</span> StopWatch();</span><br><span class="line">  <span class="comment">/* 开始 stopWatch 统计 */</span></span><br><span class="line">  stopWatch.start();</span><br><span class="line">  ConfigurableApplicationContext context = <span class="keyword">null</span>;</span><br><span class="line">  Collection&lt;SpringBootExceptionReporter&gt; exceptionReporters = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">  <span class="comment">/* 配置 headless 属性 */</span></span><br><span class="line">  configureHeadlessProperty();</span><br><span class="line">  <span class="comment">/* 获取 SpringApplicationRunListener 类型的 bean 实例列表 */</span></span><br><span class="line">  SpringApplicationRunListeners listeners = getRunListeners(args);</span><br><span class="line">  <span class="comment">/* 启动监听器 */</span></span><br><span class="line">  listeners.starting();</span><br><span class="line">  <span class="keyword">try</span> {</span><br><span class="line">    <span class="comment">/* 创建默认 applicationArguments,提供对用于运行 SpringApplication 的参数的访问。*/</span></span><br><span class="line">    ApplicationArguments applicationArguments = <span class="keyword">new</span> DefaultApplicationArguments(args);</span><br><span class="line">    <span class="comment">/* 加载所有的 environment,包括 application.properties/application.yml 以及其他外部的属性配置 */</span></span><br><span class="line">    ConfigurableEnvironment environment = prepareEnvironment(listeners, applicationArguments);</span><br><span class="line">    configureIgnoreBeanInfo(environment);</span><br><span class="line">    <span class="comment">/* 打印 banner 信息 */</span></span><br><span class="line">    Banner printedBanner = printBanner(environment);</span><br><span class="line">    <span class="comment">/* 创建应用上下文 */</span></span><br><span class="line">    context = createApplicationContext();</span><br><span class="line">    <span class="comment">/* 创建异常报告器 */</span></span><br><span class="line">    exceptionReporters = getSpringFactoriesInstances(SpringBootExceptionReporter<span class="class">.<span class="keyword">class</span>,</span></span><br><span class="line">        new Class[] { ConfigurableApplicationContext.class }, context);</span><br><span class="line">    prepareContext(context, environment, listeners, applicationArguments, printedBanner);</span><br><span class="line">    <span class="comment">/* 初始化 Spring 容器。 */</span></span><br><span class="line">    refreshContext(context);</span><br><span class="line">    <span class="comment">/* 执行 Spring 容器的初始化的后置逻辑 */</span></span><br><span class="line">    afterRefresh(context, applicationArguments);</span><br><span class="line">    <span class="comment">/* 停止 stopWatch 统计 */</span></span><br><span class="line">    stopWatch.stop();</span><br><span class="line">    <span class="comment">/* 打印 Spring Boot 启动日志。 */</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.logStartupInfo) {</span><br><span class="line">      <span class="keyword">new</span> StartupInfoLogger(<span class="keyword">this</span>.mainApplicationClass).logStarted(getApplicationLog(), stopWatch);</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">/* 通知 SpringApplicationRunListener,Spring 容器启动完成。 */</span></span><br><span class="line">    listeners.started(context);</span><br><span class="line">    <span class="comment">/* 调用 ApplicationRunner 或者 CommandLineRunner 的运行方法。 */</span></span><br><span class="line">    callRunners(context, applicationArguments);</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">catch</span> (Throwable ex) {</span><br><span class="line">    <span class="comment">/* 如果发生异常，则进行处理，并抛出 IllegalStateException 异常 */</span></span><br><span class="line">    handleRunFailure(context, ex, exceptionReporters, listeners);</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(ex);</span><br><span class="line">  }</span><br><span class="line">  <span class="comment">/* SpringApplicationRunListener 的数组，Spring 容器运行中。 */</span></span><br><span class="line">  <span class="keyword">try</span> {</span><br><span class="line">    listeners.running(context);</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">catch</span> (Throwable ex) {</span><br><span class="line">    <span class="comment">/* 如果发生异常，则进行处理，并抛出 IllegalStateException 异常 */</span></span><br><span class="line">    handleRunFailure(context, ex, exceptionReporters, <span class="keyword">null</span>);</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(ex);</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">return</span> context;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+<h2 id="prepareEnvironment"><a href="#prepareEnvironment" class="headerlink" title="prepareEnvironment"></a>prepareEnvironment</h2><blockquote>
+<p>准备 environment,加载属性配置</p>
+</blockquote>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">java</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> ConfigurableEnvironment <span class="title">prepareEnvironment</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    SpringApplicationRunListeners listeners,</span></span></span><br><span class="line"><span class="function"><span class="params">    ApplicationArguments applicationArguments)</span> </span>{</span><br><span class="line">  <span class="comment">/* 创建并配置 ConfigurableEnvironment 对象*/</span></span><br><span class="line">  ConfigurableEnvironment environment = getOrCreateEnvironment();</span><br><span class="line">  configureEnvironment(environment, applicationArguments.getSourceArgs());</span><br><span class="line">  <span class="comment">/* 通知 SpringApplicationRunListeners,环境变量已经准备完成。 */</span></span><br><span class="line">  listeners.environmentPrepared(environment);</span><br><span class="line">  <span class="comment">/* 绑定 environment 到 SpringApplication */</span></span><br><span class="line">  bindToSpringApplication(environment);</span><br><span class="line">  <span class="comment">/* 如果非自定义 environment ，则根据条件转换 */</span></span><br><span class="line">  <span class="keyword">if</span> (!<span class="keyword">this</span>.isCustomEnvironment) {</span><br><span class="line">    environment = <span class="keyword">new</span> EnvironmentConverter(getClassLoader())</span><br><span class="line">        .convertEnvironmentIfNecessary(environment, deduceEnvironmentClass());</span><br><span class="line">  }</span><br><span class="line">  <span class="comment">/* 如果有 attach 到 environment 上的 MutablePropertySources ，则添加到 environment 的 PropertySource 中。 */</span></span><br><span class="line">  ConfigurationPropertySources.attach(environment);</span><br><span class="line">  <span class="keyword">return</span> environment;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+<h2 id="createApplicationContext"><a href="#createApplicationContext" class="headerlink" title="createApplicationContext"></a>createApplicationContext</h2><blockquote>
+<p>创建应用上下文</p>
+</blockquote>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">java</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> ConfigurableApplicationContext <span class="title">createApplicationContext</span><span class="params">()</span> </span>{</span><br><span class="line">  Class&lt;?&gt; contextClass = <span class="keyword">this</span>.applicationContextClass;</span><br><span class="line">  <span class="keyword">if</span> (contextClass == <span class="keyword">null</span>) {</span><br><span class="line">    <span class="keyword">try</span> {</span><br><span class="line">      <span class="keyword">switch</span> (<span class="keyword">this</span>.webApplicationType) {</span><br><span class="line">      <span class="comment">/* web 应用环境,AnnotationConfigServletWebServerApplicationContext */</span></span><br><span class="line">      <span class="keyword">case</span> SERVLET:</span><br><span class="line">        contextClass = Class.forName(DEFAULT_SERVLET_WEB_CONTEXT_CLASS);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="comment">/* webflux 应用环境,AnnotationConfigReactiveWebServerApplicationContext */</span></span><br><span class="line">      <span class="keyword">case</span> REACTIVE:</span><br><span class="line">        contextClass = Class.forName(DEFAULT_REACTIVE_WEB_CONTEXT_CLASS);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="comment">/* 非 web 应用环境,AnnotationConfigApplicationContext */</span></span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">        contextClass = Class.forName(DEFAULT_CONTEXT_CLASS);</span><br><span class="line">      }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">catch</span> (ClassNotFoundException ex) {</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(</span><br><span class="line">          <span class="string">"Unable create a default ApplicationContext, "</span></span><br><span class="line">              + <span class="string">"please specify an ApplicationContextClass"</span>,</span><br><span class="line">          ex);</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">  <span class="comment">/* 返回对应应用上下文实例 */</span></span><br><span class="line">  <span class="keyword">return</span> (ConfigurableApplicationContext) BeanUtils.instantiateClass(contextClass);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+<h2 id="prepareContext"><a href="#prepareContext" class="headerlink" title="prepareContext"></a>prepareContext</h2><blockquote>
+<p>准备 ApplicationContext 对象,初始化它的一些属性</p>
+</blockquote>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">java</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">prepareContext</span><span class="params">(ConfigurableApplicationContext context,</span></span></span><br><span class="line"><span class="function"><span class="params">    ConfigurableEnvironment environment, SpringApplicationRunListeners listeners,</span></span></span><br><span class="line"><span class="function"><span class="params">    ApplicationArguments applicationArguments, Banner printedBanner)</span> </span>{</span><br><span class="line">  <span class="comment">/* 设置 context 的 environment 属性 */</span></span><br><span class="line">  context.setEnvironment(environment);</span><br><span class="line">  <span class="comment">/* 设置 context 的一些属性 */</span></span><br><span class="line">  postProcessApplicationContext(context);</span><br><span class="line">  <span class="comment">/* 初始化 ApplicationContextInitializer */</span></span><br><span class="line">  applyInitializers(context);</span><br><span class="line">  <span class="comment">/* 通知 SpringApplicationRunListeners,Spring 容器准备完成。 */</span></span><br><span class="line">  listeners.contextPrepared(context);</span><br><span class="line">  <span class="comment">/* 打印日志 */</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">this</span>.logStartupInfo) {</span><br><span class="line">    logStartupInfo(context.getParent() == <span class="keyword">null</span>);</span><br><span class="line">    logStartupProfileInfo(context);</span><br><span class="line">  }</span><br><span class="line">  <span class="comment">/* 获取 beanFactory */</span></span><br><span class="line">  ConfigurableListableBeanFactory beanFactory = context.getBeanFactory();</span><br><span class="line">  <span class="comment">/* 注册单例 springApplicationArguments bean */</span></span><br><span class="line">  beanFactory.registerSingleton(<span class="string">"springApplicationArguments"</span>, applicationArguments);</span><br><span class="line">  <span class="comment">/* 注册单例 printedBanner bean */</span></span><br><span class="line">  <span class="keyword">if</span> (printedBanner != <span class="keyword">null</span>) {</span><br><span class="line">    beanFactory.registerSingleton(<span class="string">"springBootBanner"</span>, printedBanner);</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">if</span> (beanFactory <span class="keyword">instanceof</span> DefaultListableBeanFactory) {</span><br><span class="line">    ((DefaultListableBeanFactory) beanFactory)</span><br><span class="line">        .setAllowBeanDefinitionOverriding(<span class="keyword">this</span>.allowBeanDefinitionOverriding);</span><br><span class="line">  }</span><br><span class="line">  <span class="comment">/* 加载 BeanDefinition */</span></span><br><span class="line">  Set&lt;Object&gt; sources = getAllSources();</span><br><span class="line">  Assert.notEmpty(sources, <span class="string">"Sources must not be empty"</span>);</span><br><span class="line">  load(context, sources.toArray(<span class="keyword">new</span> Object[<span class="number">0</span>]));</span><br><span class="line">  <span class="comment">/* 通知 SpringApplicationRunListeners,Spring 容器加载完成。 */</span></span><br><span class="line">  listeners.contextLoaded(context);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+
+<h2 id="callRunners"><a href="#callRunners" class="headerlink" title="callRunners"></a>callRunners</h2><blockquote>
+<p>调用 ApplicationRunner 或者 CommandLineRunner 的 run 方法</p>
+</blockquote>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">java</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">callRunners</span><span class="params">(ApplicationContext context, ApplicationArguments args)</span> </span>{</span><br><span class="line">	List&lt;Object&gt; runners = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">   <span class="comment">/* 获取所有的 ApplicationRunner 类型的 bean 加入到 runners */</span></span><br><span class="line">	runners.addAll(context.getBeansOfType(ApplicationRunner<span class="class">.<span class="keyword">class</span>).<span class="title">values</span>())</span>;</span><br><span class="line">   <span class="comment">/* 获取所有的 CommandLineRunner 类型的 bean 加入到 runners */</span></span><br><span class="line">	runners.addAll(context.getBeansOfType(CommandLineRunner<span class="class">.<span class="keyword">class</span>).<span class="title">values</span>())</span>;</span><br><span class="line">   <span class="comment">/* 排序 runners */</span></span><br><span class="line">	AnnotationAwareOrderComparator.sort(runners);</span><br><span class="line">   <span class="comment">/* LinkedHashSet 去重并遍历 */</span></span><br><span class="line">	<span class="keyword">for</span> (Object runner : <span class="keyword">new</span> LinkedHashSet&lt;&gt;(runners)) {</span><br><span class="line">     <span class="comment">/* ApplicationRunner 类型 runner */</span></span><br><span class="line">		<span class="keyword">if</span> (runner <span class="keyword">instanceof</span> ApplicationRunner) {</span><br><span class="line">			callRunner((ApplicationRunner) runner, args);</span><br><span class="line">		}</span><br><span class="line">     <span class="comment">/* CommandLineRunner 类型 runner */</span></span><br><span class="line">		<span class="keyword">if</span> (runner <span class="keyword">instanceof</span> CommandLineRunner) {</span><br><span class="line">			callRunner((CommandLineRunner) runner, args);</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">callRunner</span><span class="params">(ApplicationRunner runner, ApplicationArguments args)</span> </span>{</span><br><span class="line">	<span class="keyword">try</span> {</span><br><span class="line">		(runner).run(args);</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">catch</span> (Exception ex) {</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Failed to execute ApplicationRunner"</span>, ex);</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">callRunner</span><span class="params">(CommandLineRunner runner, ApplicationArguments args)</span> </span>{</span><br><span class="line">	<span class="keyword">try</span> {</span><br><span class="line">		(runner).run(args.getSourceArgs());</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">catch</span> (Exception ex) {</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Failed to execute CommandLineRunner"</span>, ex);</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script></div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Emil</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://blog.hvnobug.com/post/spring-boot-springapplication.html">https://blog.hvnobug.com/post/spring-boot-springapplication.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.hvnobug.com">Emil`s Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/java/">java    </a><a class="post-meta__tags" href="/tags/spring-boot/">spring-boot    </a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/original-anime/20.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="lazyload post-qr-code__img" src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/loading/1.gif" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/medias/reward/wechat.png" alt="微信"><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="lazyload post-qr-code__img" src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/loading/1.gif" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/medias/reward/alipay.jpg" alt="支付宝"><div class="post-qr-code__desc">支付宝</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/post/hexo-free.html"><img class="prev_cover" src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/original-anime/8.png" onerror="onerror=null;src='/img/404.jpg'"><div class="label">上一篇</div><div class="prev_info"><span>hexo免费搭建个人博客网站</span></div></a></div><div class="next-post pull_right"><a href="/post/spring-boot-jpa-multiple-datasource.html"><img class="next_cover" src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/original-anime/18.png" onerror="onerror=null;src='/img/404.jpg'"><div class="label">下一篇</div><div class="next_info"><span>SpringBoot Jpa多数据源配置</span></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/post/spring-boot-email.html" title="SpringBoot-Mail发送邮件"><img class="relatedPosts_cover "src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/loading/1.gif" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/original-anime/17.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-04-19</div><div class="relatedPosts_title">SpringBoot-Mail发送邮件</div></div></a></div><div class="relatedPosts_item"><a href="/post/spring-boot-jpa-multiple-datasource.html" title="SpringBoot Jpa多数据源配置"><img class="relatedPosts_cover "src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/loading/1.gif" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/original-anime/18.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-04-19</div><div class="relatedPosts_title">SpringBoot Jpa多数据源配置</div></div></a></div><div class="relatedPosts_item"><a href="/post/spring-boot-quartz.html" title="SpringBoot+Quartz+Druid实现动态定时任务"><img class="relatedPosts_cover "src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/loading/1.gif" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/original-anime/19.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-04-19</div><div class="relatedPosts_title">SpringBoot+Quartz+Druid实现动态定时任务</div></div></a></div><div class="relatedPosts_item"><a href="/post/spring-security-redirect.html" title="SpringSecurity中通过Nginx转发重定向到Nginx的地址解决办法"><img class="relatedPosts_cover "src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/loading/1.gif" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/original-anime/21.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-04-19</div><div class="relatedPosts_title">SpringSecurity中通过Nginx转发重定向到Nginx的地址解决办法</div></div></a></div><div class="relatedPosts_item"><a href="/post/awesome-java-github-tool.html" title="推荐一些实用的开源工具(Java篇)"><img class="relatedPosts_cover "src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/loading/1.gif" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/original-anime/3.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-04-19</div><div class="relatedPosts_title">推荐一些实用的开源工具(Java篇)</div></div></a></div><div class="relatedPosts_item"><a href="/post/awesome-java-github-project.html" title="推荐一些实用的Github项目(Java篇)"><img class="relatedPosts_cover "src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/loading/1.gif" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/original-anime/2.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-04-19</div><div class="relatedPosts_title">推荐一些实用的Github项目(Java篇)</div></div></a></div><div class="relatedPosts_item"><a href="/post/java-reflect-type.html" title="Java反射之Type接口"><img class="relatedPosts_cover "src="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/loading/1.gif" data-original="https://cdn.jsdelivr.net/gh/hvnobug/assets/blog/album/original-anime/13.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-04-19</div><div class="relatedPosts_title">Java反射之Type接口</div></div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = false == true ? true : false;
+var verify = false == true ? true : false;
+var GUEST_INFO = ['nick','mail','link'];
+var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+  return GUEST_INFO.indexOf(item) > -1
+});
+guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+
+window.valine = new Valine({
+  el:'#vcomment',
+  notify:notify,
+  verify:verify,
+  appId:'wN7GK2Jgd6fz8so4U85XeUxl-9Nh9j0Va',
+  appKey:'JRpha8sPFNqXkv1a0HNIIQFY',
+  placeholder:'说点什么吧!',
+  avatar:'monsterid',
+  guest_info:guest_info,
+  pageSize:'10',
+  lang:'zh-cn',
+  recordIP: true
+});</script></div></div></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2020 By Emil</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="icp"><a href="http://www.miitbeian.gov.cn/# 备案链接" target="_blank" rel="noopener"><img class="icp-icon" src="/img/icp.png"><span>豫ICP备18037410号-2</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/js/fireworks.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script id="canvas_nest" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/js/canvas-nest.js"></script><script src="https://cdn.jsdelivr.net/npm/activate-power-mode/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true; 
+document.body.addEventListener('input', POWERMODE);
+</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div>
+<script type="text/javascript">
+    (function (window) {
+        let images = Array.prototype.slice.call(document.querySelectorAll('img[data-original]'));
+    
+        function elementInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top >= 0
+                && rect.left >= 0
+                && rect.top <= (window.innerHeight +240 || document.documentElement.clientHeight +240)
+            );
+        }
+        function loadImage(el, fn) {
+            const img = new Image()
+                , src = el.getAttribute('data-original');
+            img.onload = function () {
+                el.src = src;
+                fn ? fn() : null;
+            };
+            img.src = src;
+        }
+    
+        function processImages() {
+            for (let i = 0; i < images.length; i++) {
+                if (elementInViewport(images[i])) {
+                    (function(index){
+                        const loadingImage = images[index];
+                        loadImage(loadingImage, function () {
+                            images = images.filter(function(t) {
+                                return loadingImage !== t;
+                            });
+                        });
+                    })(i);
+                }
+            };
+        }
+    
+        function throttle(method, context) {
+            clearTimeout(method.tId);
+            method.tId = setTimeout(function () {
+                method.call(context);
+            }, 500);
+        }
+    
+        processImages();
+    
+        window.addEventListener('scroll', function () {
+            throttle(processImages, window);
+        });
+    
+    })(this);
+</script>
+<!-- APlayer -->
+<link href="//unpkg.com/aplayer/dist/APlayer.min.css" rel="stylesheet">
+<script src="//cdn.jsdelivr.net/npm/hls.js"></script>
+<script src="//unpkg.com/aplayer/dist/APlayer.min.js"></script>
+<script>
+const neteaseMusics = {};
+/* 默认APi服务地址 */
+const neteaseMusicApiHost = 'https://hvnobug.com/netease-music-api';
+/* 默认歌单 */
+const playerListId = '3083141942';
+const initAPlayer = id => {
+    let player = document.getElementById('player');
+    if (!player) {
+        player = document.createElement('div');
+        player.id = 'player';
+        document.body.appendChild(player)
+    }
+    id = id || playerListId;
+    const url = 'https://api.i-meto.com/meting/api?server=netease&type=playlist&id=' + id;
+    $.get(url, function (result) {
+        const customAudioType = {
+            'customHls': function (audioElement, audio, player) {
+                if (Hls.isSupported()) {
+                    const hls = new Hls();
+                    hls.loadSource(audio.url);
+                    hls.attachMedia(audioElement)
+                } else if (audioElement.canPlayType('application/x-mpegURL') || audioElement.canPlayType('application/vnd.apple.mpegURL')) {
+                    audioElement.src = audio.url
+                } else {
+                    player.notice('Error: HLS is not supported.')
+                }
+            }
+        };
+        const aPlayer = new APlayer({
+            container: player,
+            fixed: true,
+            order: 'random',
+            customAudioType: customAudioType,
+            lrcType: 3,
+            autoplay: false,
+            audio: JSON.parse(result)
+        });
+
+    });
+};
+(function () {
+    /* 移动端不初始化 APlayer */
+    ((document.body.clientWidth || document.body.offsetWidth || window.screen.availWidth) > 450) && initAPlayer();
+}());
+</script>
+<!-- 每日一句 -->
+<script type="text/javascript">
+    const $title = $('.bg-cover .title');
+    if ($title.length > 0) {
+        $.ajax({
+            url: 'https://sdk.jinrishici.com/v2/browser/jinrishici.js',
+            dataType: "script",
+            cache: true,
+            async: false,
+            success: function () {
+                jinrishici.load(function (result) {
+                    // 自己的处理逻辑
+                    const {status, data} = result;
+                    if (status === 'success') {
+                        $title.css('font-size', '3rem');
+                        $title.html(data.origin.title + '<span style="font-size:2rem;margin-left:1rem;">' + data.origin.author + '-' + data.origin['dynasty'] + '</span>');
+                        typed.strings = data.origin.content.slice(0, 2);
+                    }
+                });
+            }
+        });
+    }
+</script>
+        <script src="//cdn.jsdelivr.net/npm/js-base64/base64.min.js"></script>
+        <script>
+        $('a').each(function() {
+          const $this = $(this);
+          const href = $this.attr('href');
+          if (href && href.match('^((http|https|thunder|qqdl|ed2k|Flashget|qbrowser|ftp|rtsp|mms)://)')) {
+            const strs = href.split('/');
+            if (strs.length >= 3) {
+                const host = strs[2];
+                if (host !== '' || window.location.host) {
+                    $this.attr('href', '/go.html?url='+Base64.encode(href)+'').attr('rel', 'external nofollow noopener noreferrer');
+                    if (true) {
+                        $this.attr('target', '_blank');
+                    }
+                }
+            }
+          }
+        });
+        </script></body></html>
